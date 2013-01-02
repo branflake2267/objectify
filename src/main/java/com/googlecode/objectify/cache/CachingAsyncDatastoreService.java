@@ -67,7 +67,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#allocateIds(java.lang.String, long)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#allocateIds(java.lang.String, long)
 	 */
 	@Override
 	public Future<KeyRange> allocateIds(String kind, long num)
@@ -76,7 +76,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#allocateIds(com.google.appengine.api.datastore.Key, java.lang.String, long)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#allocateIds(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key, java.lang.String, long)
 	 */
 	@Override
 	public Future<KeyRange> allocateIds(Key parent, String kind, long num)
@@ -107,7 +107,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#beginTransaction()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#beginTransaction()
 	 */
 	@Override
 	public Future<Transaction> beginTransaction()
@@ -116,7 +116,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#beginTransaction(com.google.appengine.api.datastore.TransactionOptions)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#beginTransaction(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.TransactionOptions)
 	 */
 	@Override
 	public Future<Transaction> beginTransaction(TransactionOptions options)
@@ -134,7 +134,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.appengine.api.datastore.Key[])
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key[])
 	 */
 	@Override
 	public Future<Void> delete(Key... keys)
@@ -145,7 +145,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#delete(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#delete(java.lang.Iterable)
 	 */
 	@Override
 	public Future<Void> delete(Iterable<Key> keys)
@@ -156,7 +156,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Key[])
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key[])
 	 */
 	@Override
 	public Future<Void> delete(Transaction txn, Key... keys)
@@ -165,7 +165,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public Future<Void> delete(final Transaction txn, final Iterable<Key> keys)
@@ -195,7 +195,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.appengine.api.datastore.Key)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key)
 	 */
 	@Override
 	public Future<Entity> get(Key key)
@@ -206,7 +206,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#get(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#get(java.lang.Iterable)
 	 */
 	@Override
 	public Future<Map<Key, Entity>> get(Iterable<Key> keys)
@@ -217,7 +217,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Key)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key)
 	 */
 	@Override
 	public Future<Entity> get(Transaction txn, final Key key)
@@ -238,7 +238,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public Future<Map<Key, Entity>> get(Transaction txn, Iterable<Key> keys)
@@ -294,7 +294,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.BaseDatastoreService#getActiveTransactions()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.BaseDatastoreService#getActiveTransactions()
 	 */
 	@Override
 	public Collection<Transaction> getActiveTransactions()
@@ -304,7 +304,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.BaseDatastoreService#getCurrentTransaction()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.BaseDatastoreService#getCurrentTransaction()
 	 */
 	@Override
 	public Transaction getCurrentTransaction()
@@ -314,7 +314,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.BaseDatastoreService#getCurrentTransaction(com.google.appengine.api.datastore.Transaction)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.BaseDatastoreService#getCurrentTransaction(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction)
 	 */
 	@Override
 	public Transaction getCurrentTransaction(Transaction txn)
@@ -324,7 +324,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.BaseDatastoreService#prepare(com.google.appengine.api.datastore.Query)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.BaseDatastoreService#prepare(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Query)
 	 */
 	@Override
 	public PreparedQuery prepare(Query query)
@@ -335,7 +335,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.BaseDatastoreService#prepare(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Query)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.BaseDatastoreService#prepare(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Query)
 	 */
 	@Override
 	public PreparedQuery prepare(Transaction txn, Query query)
@@ -344,7 +344,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.appengine.api.datastore.Entity)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity)
 	 */
 	@Override
 	public Future<Key> put(Entity entity)
@@ -355,7 +355,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#put(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#put(java.lang.Iterable)
 	 */
 	@Override
 	public Future<List<Key>> put(Iterable<Entity> entities)
@@ -366,7 +366,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Entity)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity)
 	 */
 	@Override
 	public Future<Key> put(final Transaction txn, final Entity entity)
@@ -383,7 +383,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public Future<List<Key>> put(final Transaction txn, final Iterable<Entity> entities)
@@ -455,7 +455,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#getDatastoreAttributes()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#getDatastoreAttributes()
 	 */
 	@Override
 	public Future<DatastoreAttributes> getDatastoreAttributes()
@@ -464,7 +464,7 @@ public class CachingAsyncDatastoreService implements AsyncDatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.AsyncDatastoreService#getIndexes()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.AsyncDatastoreService#getIndexes()
 	 */
 	@Override
 	public Future<Map<Index, IndexState>> getIndexes()

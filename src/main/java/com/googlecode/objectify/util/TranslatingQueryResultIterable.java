@@ -21,7 +21,7 @@ abstract public class TranslatingQueryResultIterable<F, T> implements QueryResul
 	abstract protected T translate(F from); 
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.QueryResultIterable#iterator()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.QueryResultIterable#iterator()
 	 */
 	@Override
 	public QueryResultIterator<T> iterator() {

@@ -385,7 +385,7 @@ class QueryImpl<T> extends SimpleQueryImpl<T> implements Query<T>, Cloneable
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.QueryResultIterable#iterator()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.QueryResultIterable#iterator()
 	 */
 	@Override
 	public QueryResultIterator<T> iterator() {

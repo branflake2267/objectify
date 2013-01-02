@@ -156,7 +156,7 @@ public class PolymorphicEntityMetadata<T> implements EntityMetadata<T>
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.impl.EntityMetadata#load(com.google.appengine.api.datastore.Entity, com.googlecode.objectify.Objectify)
+	 * @see com.googlecode.objectify.impl.EntityMetadata#load(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity, com.googlecode.objectify.Objectify)
 	 */
 	@Override
 	public T load(Entity ent, LoadContext ctx)

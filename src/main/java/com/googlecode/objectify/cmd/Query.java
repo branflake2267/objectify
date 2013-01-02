@@ -82,13 +82,13 @@ public interface Query<T> extends SimpleQuery<T>
 	public Query<T> offset(int value);
 	
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.cmd.SimpleQuery#startAt(com.google.appengine.api.datastore.Cursor)
+	 * @see com.googlecode.objectify.cmd.SimpleQuery#startAt(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Cursor)
 	 */
 	@Override
 	public Query<T> startAt(Cursor value);
 	
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.cmd.SimpleQuery#endAt(com.google.appengine.api.datastore.Cursor)
+	 * @see com.googlecode.objectify.cmd.SimpleQuery#endAt(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Cursor)
 	 */
 	@Override
 	public Query<T> endAt(Cursor value);

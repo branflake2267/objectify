@@ -39,7 +39,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#allocateIds(java.lang.String, long)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#allocateIds(java.lang.String, long)
 	 */
 	@Override
 	public KeyRange allocateIds(String kind, long num)
@@ -48,7 +48,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#allocateIds(com.google.appengine.api.datastore.Key, java.lang.String, long)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#allocateIds(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key, java.lang.String, long)
 	 */
 	@Override
 	public KeyRange allocateIds(Key parent, String kind, long num)
@@ -57,7 +57,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#allocateIdRange(com.google.appengine.api.datastore.KeyRange)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#allocateIdRange(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.KeyRange)
 	 */
 	@Override
 	public KeyRangeState allocateIdRange(KeyRange range)
@@ -66,7 +66,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#beginTransaction()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#beginTransaction()
 	 */
 	@Override
 	public Transaction beginTransaction()
@@ -75,7 +75,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#beginTransaction(com.google.appengine.api.datastore.TransactionOptions)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#beginTransaction(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.TransactionOptions)
 	 */
 	@Override
 	public Transaction beginTransaction(TransactionOptions options)
@@ -84,7 +84,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#delete(com.google.appengine.api.datastore.Key[])
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key[])
 	 */
 	@Override
 	public void delete(Key... keys)
@@ -93,7 +93,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#delete(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#delete(java.lang.Iterable)
 	 */
 	@Override
 	public void delete(Iterable<Key> keys)
@@ -102,7 +102,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#delete(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Key[])
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key[])
 	 */
 	@Override
 	public void delete(Transaction txn, Key... keys)
@@ -111,7 +111,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#delete(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#delete(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public void delete(Transaction txn, Iterable<Key> keys)
@@ -120,7 +120,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#get(com.google.appengine.api.datastore.Key)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key)
 	 */
 	@Override
 	public Entity get(Key key) throws EntityNotFoundException
@@ -129,7 +129,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#get(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#get(java.lang.Iterable)
 	 */
 	@Override
 	public Map<Key, Entity> get(Iterable<Key> keys)
@@ -138,7 +138,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#get(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Key)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key)
 	 */
 	@Override
 	public Entity get(Transaction txn, Key key) throws EntityNotFoundException
@@ -153,7 +153,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#get(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#get(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public Map<Key, Entity> get(Transaction txn, Iterable<Key> keys)
@@ -162,7 +162,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#getActiveTransactions()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#getActiveTransactions()
 	 */
 	@Override
 	public Collection<Transaction> getActiveTransactions()
@@ -172,7 +172,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#getCurrentTransaction()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#getCurrentTransaction()
 	 */
 	@Override
 	public Transaction getCurrentTransaction()
@@ -182,7 +182,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#getCurrentTransaction(com.google.appengine.api.datastore.Transaction)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#getCurrentTransaction(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction)
 	 */
 	@Override
 	public Transaction getCurrentTransaction(Transaction txn)
@@ -192,7 +192,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#prepare(com.google.appengine.api.datastore.Query)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#prepare(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Query)
 	 */
 	@Override
 	public PreparedQuery prepare(Query query)
@@ -201,7 +201,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#prepare(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Query)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#prepare(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Query)
 	 */
 	@Override
 	public PreparedQuery prepare(Transaction txn, Query query)
@@ -210,7 +210,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#put(com.google.appengine.api.datastore.Entity)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity)
 	 */
 	@Override
 	public Key put(Entity entity)
@@ -219,7 +219,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#put(java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#put(java.lang.Iterable)
 	 */
 	@Override
 	public List<Key> put(Iterable<Entity> entities)
@@ -228,7 +228,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#put(com.google.appengine.api.datastore.Transaction, com.google.appengine.api.datastore.Entity)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity)
 	 */
 	@Override
 	public Key put(Transaction txn, Entity entity)
@@ -237,7 +237,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#put(com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#put(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Transaction, java.lang.Iterable)
 	 */
 	@Override
 	public List<Key> put(Transaction txn, Iterable<Entity> entities)
@@ -246,7 +246,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#getDatastoreAttributes()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#getDatastoreAttributes()
 	 */
 	@Override
 	public DatastoreAttributes getDatastoreAttributes()
@@ -255,7 +255,7 @@ public class CachingDatastoreService implements DatastoreService
 	}
 
 	/* (non-Javadoc)
-	 * @see com.google.appengine.api.datastore.DatastoreService#getIndexes()
+	 * @see com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.DatastoreService#getIndexes()
 	 */
 	@Override
 	public Map<Index, IndexState> getIndexes()

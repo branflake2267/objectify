@@ -84,7 +84,7 @@ abstract class SimpleQueryImpl<T> implements SimpleQuery<T>
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.cmd.Query#startCursor(com.google.appengine.api.datastore.Cursor)
+	 * @see com.googlecode.objectify.cmd.Query#startCursor(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Cursor)
 	 */
 	@Override
 	public QueryImpl<T> startAt(Cursor value)
@@ -95,7 +95,7 @@ abstract class SimpleQueryImpl<T> implements SimpleQuery<T>
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.cmd.Query#endCursor(com.google.appengine.api.datastore.Cursor)
+	 * @see com.googlecode.objectify.cmd.Query#endCursor(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Cursor)
 	 */
 	@Override
 	public QueryImpl<T> endAt(Cursor value)

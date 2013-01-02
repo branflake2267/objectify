@@ -102,7 +102,7 @@ public class EntityClassTranslator<T> extends ClassTranslator<T> implements KeyM
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.impl.KeyMetadata#setKey(java.lang.Object, com.google.appengine.api.datastore.Key, com.googlecode.objectify.impl.translate.LoadContext)
+	 * @see com.googlecode.objectify.impl.KeyMetadata#setKey(java.lang.Object, com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Key, com.googlecode.objectify.impl.translate.LoadContext)
 	 */
 	@Override
 	public void setKey(T pojo, com.google.appengine.api.datastore.Key key, LoadContext ctx) {

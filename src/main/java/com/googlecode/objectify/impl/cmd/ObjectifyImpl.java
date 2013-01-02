@@ -123,7 +123,7 @@ public class ObjectifyImpl implements Objectify, Cloneable
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.Objectify#consistency(com.google.appengine.api.datastore.ReadPolicy.Consistency)
+	 * @see com.googlecode.objectify.Objectify#consistency(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.ReadPolicy.Consistency)
 	 */
 	@Override
 	public Objectify consistency(Consistency value) {
@@ -411,7 +411,7 @@ public class ObjectifyImpl implements Objectify, Cloneable
 	}
 
 	/* (non-Javadoc)
-	 * @see com.googlecode.objectify.Objectify#toPojo(com.google.appengine.api.datastore.Entity)
+	 * @see com.googlecode.objectify.Objectify#toPojo(com.google.gwt.user.client.rpc.core.com.google.appengine.api.datastore.Entity)
 	 */
 	@Override
 	public <T> T toPojo(Entity entity) {
