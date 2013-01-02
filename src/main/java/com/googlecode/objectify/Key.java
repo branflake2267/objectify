@@ -269,7 +269,7 @@ public class Key<T> implements Serializable, Comparable<Key<?>>
 			if (ourAnn.name() != null && ourAnn.name().length() != 0)
 				return ourAnn.name();
 			else
-				return clazz.getSimpleName();
+				return clazz.getName();
 
 		return null;
 	}
