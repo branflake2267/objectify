@@ -2,6 +2,7 @@ package com.googlecode.objectify;
 
 import java.io.Serializable;
 
+import com.googlecode.objectify.impl.ref.StdRef;
 import com.googlecode.objectify.util.ResultNow;
 
 
@@ -14,37 +15,16 @@ import com.googlecode.objectify.util.ResultNow;
  *
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class Ref<T> implements Serializable, Comparable<Ref<T>>
+abstract public class Ref<T> implements Serializable, Comparable<Ref<T>>
 {
-  private static final long serialVersionUID = 1L;
-  
-  /** The key associated with this ref */
-  protected Key<T> key;
-
-  /** The value associated with the key */
-  protected Result<T> result;
-  
-  protected Ref() {}
-
-  /** Create a Ref based on the key, no value initialized */
-  public Ref(Key<T> key) {
-    if (key == null)
-      throw new NullPointerException("Cannot create a Ref for a null key");
-
-    this.key = key;
-  }
-  
-  public Ref(Key<T> key, T value) {
-    this(key);
-    this.result = new ResultNow<T>(value);
-  }
+	private static final long serialVersionUID = 1L;
 
 	/** Key.create(Blah.class, id) is easier to type than new Key<Blah>(Blah.class, id) */
 	public static <T> Ref<T> create(Key<T> key) {
 		if (key == null)
 			throw new NullPointerException("Cannot create a Ref from a null key");
 
-		return new Ref<T>(key);
+		return new StdRef<T>(key);
 	}
 
 	/** Creates a Ref that starts out with a value too */
@@ -63,9 +43,7 @@ public class Ref<T> implements Serializable, Comparable<Ref<T>>
 	/**
 	 * @return the key associated with this Ref
 	 */
-	public Key<T> key() {
-	  return key;
-	}
+	abstract public Key<T> key();
 
 	/**
 	 * Obtain the entity value associated with the key.
@@ -73,12 +51,7 @@ public class Ref<T> implements Serializable, Comparable<Ref<T>>
 	 * @return the entity referenced, or null if the entity was not found
 	 * @throws IllegalStateException if the value has not been initialized
 	 */
-	public T get() {
-	  if (this.result == null)
-      throw new IllegalStateException("Ref<?> value has not been initialized");
-    else
-      return this.result.now();
-	}
+	abstract public T get();
 
 	/**
 	 * Nearly identical to get() but conforms to JavaBean conventions and returns null instead of
@@ -87,19 +60,12 @@ public class Ref<T> implements Serializable, Comparable<Ref<T>>
 	 *
 	 * @return the entity referenced, or null if either the entity was not found or this Ref is uninitialized
 	 */
-	public T getValue() {
-	  if (this.result == null)
-      return null;
-    else
-      return this.result.now();
-	}
+	abstract public T getValue();
 
 	/**
 	 * Explicitly sets (or resets) the value of this Ref.
 	 */
-	public void set(Result<T> result) {
-	  this.result = result;
-	}
+	abstract public void set(Result<T> value);
 
 	/**
 	 * Same as key() but conforms to JavaBeans conventions in case this is being processed by a JSON
@@ -170,6 +136,6 @@ public class Ref<T> implements Serializable, Comparable<Ref<T>>
 	/** Renders some info about the key */
 	@Override
 	public String toString() {
-		return this.getClass().getName() + "(" + key() + ")";
+		return this.getClass().getSimpleName() + "(" + key() + ")";
 	}
 }

@@ -11,6 +11,7 @@ import com.google.gwt.user.server.rpc.impl.DequeMap;
 import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamReader;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.impl.ref.StdRef;
 
 public class Ref_ServerCustomFieldSerializer extends ServerCustomFieldSerializer<Ref> {
 
@@ -19,7 +20,7 @@ public class Ref_ServerCustomFieldSerializer extends ServerCustomFieldSerializer
       Type[] expectedParameterTypes, DequeMap<TypeVariable<?>, Type> resolvedTypes) throws SerializationException {
     Key<?> key = (Key<?>) streamReader.readObject();
     Object value = streamReader.readObject();
-    instance = new Ref(key, value);
+    instance = new StdRef(key, value);
   }
 
   @Override
@@ -27,7 +28,7 @@ public class Ref_ServerCustomFieldSerializer extends ServerCustomFieldSerializer
       throws SerializationException {
     Key<?> key = (Key<?>) streamReader.readObject();
     Object value = streamReader.readObject();
-    instance = new Ref(key, value);
+    instance = new StdRef(key, value);
   }
 
   @Override
