@@ -65,6 +65,14 @@
     </build>
 
     <dependencies>
+        <!-- Objectify -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>objectify</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    
         <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -100,6 +108,6 @@
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>       
     </dependencies>
 </project>
