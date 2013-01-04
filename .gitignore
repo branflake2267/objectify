@@ -7,3 +7,5 @@ test-output
 .gradle
 .DS_Store
 bin**
+.project
+.classpath
