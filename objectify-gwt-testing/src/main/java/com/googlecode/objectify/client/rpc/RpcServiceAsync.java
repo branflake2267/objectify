@@ -8,4 +8,6 @@ import com.googlecode.objectify.shared.domain.Person;
  */
 public interface RpcServiceAsync {
   void getPerson(AsyncCallback<Person> callback);
+
+  void savePerson(Person person, AsyncCallback<Person> callback);
 }

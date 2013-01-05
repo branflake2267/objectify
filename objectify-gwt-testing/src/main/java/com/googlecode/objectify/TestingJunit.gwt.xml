@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='testing'>
+
+    <!-- Include the regular modular -->
+    <inherits name='com.googlecode.objectify.Testing' />
+
+    <!-- Add a path to the rpc servlet for testing -->
+    <servlet path="/rpc" class="com.googlecode.objectify.server.RpcServiceImpl" />
+
+</module>

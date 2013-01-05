@@ -11,7 +11,7 @@ public class NotFoundException extends RuntimeException
 	private static final long serialVersionUID = 1L;
 	
 	/** */
-	private final Key<?> key;
+	private Key<?> key;
 
 	/** Thrown when there is no key context (eg, query.first() on an empty result set) */
 	public NotFoundException() {

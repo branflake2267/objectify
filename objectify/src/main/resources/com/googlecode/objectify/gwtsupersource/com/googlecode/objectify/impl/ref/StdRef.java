@@ -43,6 +43,12 @@ public class StdRef<T> extends Ref<T>
         this(key);
         this.result = new ResultNow<T>(value);
     }
+    
+    /** Create a Ref based on the value */
+    public StdRef(T value) 
+    {
+      this.result = new ResultNow<T>(value);
+    }
 
     /*
      * (non-Javadoc)

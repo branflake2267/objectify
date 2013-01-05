@@ -17,7 +17,12 @@ public class StdRef_CustomFieldSerializer extends CustomFieldSerializer<StdRef>
     {
         Key<?> key = (Key<?>) streamReader.readObject();
         Object value = streamReader.readObject();
-        instance = new StdRef(key, value);
+
+        if (key == null) {
+            instance = new StdRef(value);
+        } else {
+            instance = new StdRef(key, value);
+        }
     }
 
     @Override
@@ -38,7 +43,12 @@ public class StdRef_CustomFieldSerializer extends CustomFieldSerializer<StdRef>
     {
         Key<?> key = (Key<?>) streamReader.readObject();
         Object value = streamReader.readObject();
-        return new StdRef(key, value);
+
+        if (key == null) {
+            return new StdRef(value);
+        } else {
+            return new StdRef(key, value);
+        }
     }
 
     public static void serialize(SerializationStreamWriter streamWriter, StdRef instance) throws SerializationException

@@ -20,25 +20,37 @@ public class RpcServiceImpl extends RemoteServiceServlet implements RpcService {
     ObjectifyService.register(Contact.class);
   }
   
+  @Override
   public Person getPerson() {
-    Person person = new Person();
-    
-    // TODO throw it through the rpc
+    Person person = null;
+
     try {
-      person.setName("testing");
+      person = new Person();
+      person.setName("namePerson");
       
       Contact contact = new Contact();
-      contact.setName("testing-ref");
+      contact.setName("nameContact");
       ofy().save().entity(contact).now();
       
       Ref<Contact> refContact = Ref.create(contact);
       person.setContact(refContact);
-      
+       
+      // save entity
       ofy().save().entity(person).now();
     } catch (Exception e) {
       e.printStackTrace();
     }
-     
+    return person;
+  }
+  
+  @Override
+  public Person savePerson(Person person) {
+    try {
+      ofy().save().entity(person).now();
+    } catch (Exception e) {
+      person = null;
+      e.printStackTrace();
+    }
     return person;
   }
 

@@ -67,7 +67,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
+                <version>2.5</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -162,6 +162,15 @@
     </build>
 
     <dependencies>
+        <!-- Objectify -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>objectify</artifactId>
+            <version>${project.version}</version>
+            <!-- <scope>provided</scope> -->
+            <!-- mvn install objectify -->
+        </dependency>
+    
         <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -209,31 +218,23 @@
             <version>${gae.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-labs</artifactId>
             <version>${gae.version}</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
             <version>${gae.version}</version>
-            <scope>test</scope>
-        </dependency>
+            <scope>compile</scope>
+        </dependency> -->
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
             <version>${gae.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Objectify -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>objectify</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
