@@ -6,3 +6,6 @@ test-output
 .gwt
 .gradle
 .DS_Store
+bin**
+.project
+.classpath

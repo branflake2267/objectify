@@ -13,17 +13,50 @@ submit pull requests) is available here:
 
 * https://github.com/stickfigure/objectify
 
-##BUILDING
+##Maven Usage
+* [Previous Versions](https://code.google.com/p/objectify-appengine/wiki/MavenRepository)
+
+    ```
+    <dependencies>
+       <dependency>
+          <groupId>com.googlecode.objectify</groupId>
+          <artifactId>objectify</artifactId>
+          <version>4.0b1</version>
+       </dependency>
+    </dependencies>
+    ```
+
+##Building
 This project is built with Gradle.
   
 * Install Gradle and then run "gradle build".
 * Don't be confused by the vestigial ant/ivy files which will someday be removed.
 
-##DEVELOPMENT:
+##Development
 Install the Gradle Eclipse plugin. Read the contributing to objectify wiki. 
 
 * [Gradle Plugin Juno Installation Instructions](http://blog.springsource.org/2012/03/14/early-access-springsource-tool-suite-for-eclipse-juno-4-2/)
 * [Contributing to Objectify](https://code.google.com/p/objectify-appengine/wiki/ContributingToObjectify)
+
+##GWT
+Add this to your GWT project module.
+
+    <inherits name="com.googlecode.objectify.Objectify"/>
+
+##IDE Setup
+
+###Eclipse IDE Setup
+Install m2e and m2e-git for importing maven projects from git works space.
+* Right click on git workspace and import maven projects
+* Goto the java perspective and right click on project and be sure the GWT App Engine have have been enable for get-testing.
+
+###IDEA Setup
+Installing from IDEA is easy.
+* Import as a Maven project and enable multi modules in the maven settings. 
+
+###IDE Reset
+* run 'mvn eclipse:clean' - run this to clean up Eclipse settings
+* run 'mvn idea:clean' - run this to clean up IDEA settings
 
 ##Development Sandbox
 Setting up the source for a development sandbox with Eclipse. This will allow Objectify testing with out building a jar.
@@ -33,10 +66,3 @@ Setting up the source for a development sandbox with Eclipse. This will allow Ob
  - Note the supersource will look like it has errors because of the re-rooted classes.  
 3. Add the needed dependencies in the sandbox project via maven or gradle. 
 
-
-##GWT
-Add this to your GWT project module.
-
-    ```
-    <inherits name="com.googlecode.objectify.Objectify"/>
-    ```
