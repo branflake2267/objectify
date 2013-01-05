@@ -1,7 +1,5 @@
 package com.googlecode.objectify.shared.domain;
 
-import javax.annotation.Nullable;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Id;
 
@@ -51,7 +49,7 @@ public abstract class BaseEntity implements IsSerializable {
         return id;
     }
 
-    public void setId(@Nullable Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

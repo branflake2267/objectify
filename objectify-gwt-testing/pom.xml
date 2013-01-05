@@ -15,6 +15,7 @@
     <description>Testing Objectify GWT utilization</description>
 
     <properties>
+        <gwt.style>OBF</gwt.style>
         <gwt.version>2.5.0</gwt.version>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
         <gae.home>
@@ -29,6 +30,13 @@
         <resources>
             <resource>
                 <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.gwt.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.java</include>
                     <include>**/*.gwt.xml</include>
@@ -90,6 +98,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- ECJ compiler conflict, this needs to be first -->
+                    <gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
+                
                     <strict>true</strict>
                     <testTimeOut>180</testTimeOut>
                     <includes>**/*GwtTest.java</includes>
@@ -97,7 +108,7 @@
 
                     <extraJvmArgs>-Xss1024k -Xmx512M</extraJvmArgs>
                     <logLevel>INFO</logLevel>
-                    <style>${gwt.style}</style>
+                    <style>OBF</style>
 
                     <copyWebapp>true</copyWebapp>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
@@ -115,20 +126,23 @@
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-user</artifactId>
                         <version>${gwt.version}</version>
+                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-dev</artifactId>
                         <version>${gwt.version}</version>
+                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-codeserver</artifactId>
                         <version>${gwt.version}</version>
+                        <scope>provided</scope>
                     </dependency>
                 </dependencies>
             </plugin>
-            
+
             <!-- Deploy to App Engine -->
             <plugin>
                 <groupId>net.kindleit</groupId>
@@ -151,28 +165,24 @@
     </build>
 
     <dependencies>
-        <!-- Objectify -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>objectify</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwt.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- validation -->
@@ -196,6 +206,14 @@
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Objectify -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>objectify</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
