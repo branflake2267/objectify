@@ -5,19 +5,28 @@
 
 <web-app>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>rpcServlet</servlet-name>
-    <servlet-class>com.googlecode.objectify.server.RpcServiceImpl</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>rpcServlet</servlet-name>
-    <url-pattern>/testing/rpc</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>junit</servlet-name>
+        <servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>junit</servlet-name>
+        <url-pattern>/testing/junithost/*</url-pattern>
+    </servlet-mapping>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Testing.html</welcome-file>
-  </welcome-file-list>
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>rpcServlet</servlet-name>
+        <servlet-class>com.googlecode.objectify.server.RpcServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rpcServlet</servlet-name>
+        <url-pattern>/testing/rpc</url-pattern>
+    </servlet-mapping>
+
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>Testing.html</welcome-file>
+    </welcome-file-list>
 
 </web-app>

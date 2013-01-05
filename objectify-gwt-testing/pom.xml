@@ -18,6 +18,7 @@
         <gwt.style>OBF</gwt.style>
         <gwt.version>2.5.0</gwt.version>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+        <webappTestDirectory>${project.build.directory}/www-test</webappTestDirectory>
         <gae.home>
             ${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
         </gae.home>
@@ -45,25 +46,6 @@
         </resources>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <webappDirectory>${webappDirectory}</webappDirectory>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/webapp/WEB-INF</directory>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>appengine-web.xml</include>
-                            </includes>
-                            <targetPath>WEB-INF</targetPath>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -100,7 +82,7 @@
                 <configuration>
                     <!-- ECJ compiler conflict, this needs to be first -->
                     <gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
-                
+
                     <strict>true</strict>
                     <testTimeOut>180</testTimeOut>
                     <includes>**/*GwtTest.java</includes>
@@ -126,21 +108,69 @@
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-user</artifactId>
                         <version>${gwt.version}</version>
-                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-dev</artifactId>
                         <version>${gwt.version}</version>
-                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>com.google.gwt</groupId>
                         <artifactId>gwt-codeserver</artifactId>
                         <version>${gwt.version}</version>
-                        <scope>provided</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.appengine</groupId>
+                        <artifactId>appengine-api-1.0-sdk</artifactId>
+                        <version>${gae.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.appengine</groupId>
+                        <artifactId>appengine-api-labs</artifactId>
+                        <version>${gae.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.appengine</groupId>
+                        <artifactId>appengine-api-stubs</artifactId>
+                        <version>${gae.version}</version>
+                        <!-- <scope>test</scope> -->
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.appengine</groupId>
+                        <artifactId>appengine-testing</artifactId>
+                        <version>${gae.version}</version>
+                        <!-- <scope>test</scope> -->
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <webappDirectory>${webappDirectory}</webappDirectory>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>appengine-web.xml</include>
+                            </includes>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
             </plugin>
 
             <!-- Deploy to App Engine -->
@@ -152,14 +182,8 @@
                     <serverId>appspot-project-id</serverId>
                     <splitJars>true</splitJars>
                 </configuration>
-                <!-- <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions> -->
+                <!-- <executions> <execution> <id>deploy</id> <goals> <goal>deploy</goal> 
+                    </goals> </execution> </executions> -->
             </plugin>
         </plugins>
     </build>
@@ -170,19 +194,19 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope> -->
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope> -->
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope> -->
         </dependency>
 
         <!-- validation -->
@@ -206,6 +230,32 @@
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Google App Engine -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${gae.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-labs</artifactId>
+            <version>${gae.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-stubs</artifactId>
+            <version>${gae.version}</version>
+            <!-- <scope>test</scope> -->
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-testing</artifactId>
+            <version>${gae.version}</version>
+            <!-- <scope>test</scope> -->
         </dependency>
 
         <!-- Objectify -->
