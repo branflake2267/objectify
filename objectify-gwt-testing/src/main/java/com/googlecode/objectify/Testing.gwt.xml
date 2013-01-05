@@ -20,6 +20,4 @@
     <source path='client' />
     <source path='shared' />
 
-      <servlet path="/testing/rpc" class="com.googlecode.objectify.server.RpcServiceImpl" />
-
 </module>

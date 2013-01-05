@@ -7,11 +7,9 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.objectify.client.rpc.RpcService;
 import com.googlecode.objectify.client.rpc.RpcServiceAsync;
+import com.googlecode.objectify.shared.domain.Contact;
 import com.googlecode.objectify.shared.domain.Person;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class Testing implements EntryPoint {
 
   private final RpcServiceAsync rpcService = GWT.create(RpcService.class);
@@ -19,14 +17,17 @@ public class Testing implements EntryPoint {
   @Override
   public void onModuleLoad() {
     RootPanel.get().add(new HTML("GWT is loaded"));
-    
+
+    getPersonTest();
+    savePersonTest();
+  }
+
+  private void getPersonTest() {
     rpcService.getPerson(new AsyncCallback<Person>() {
-      
       @Override
       public void onSuccess(Person result) {
         RootPanel.get().add(new HTML("Person loaded. person = " + result));
       }
-      
       @Override
       public void onFailure(Throwable caught) {
         caught.printStackTrace();
@@ -34,4 +35,24 @@ public class Testing implements EntryPoint {
     });
   }
 
+  private void savePersonTest() {
+    Person person = new Person();
+    person.setName("savePerson");
+    
+    Contact contact = new Contact();
+    contact.setName("saveContact");
+    person.setContact(contact);
+    
+    rpcService.savePerson(person, new AsyncCallback<Person>() {
+      @Override
+      public void onSuccess(Person result) {
+        RootPanel.get().add(new HTML("Person saved. person = " + result));
+      }
+      @Override
+      public void onFailure(Throwable caught) {
+        caught.printStackTrace();
+      }
+    });
+  }
+  
 }

@@ -27,7 +27,7 @@ public class GwtTestTesting extends GWTTestCase {
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
   
   public String getModuleName() {
-    return "com.googlecode.objectify.Testing";
+    return "com.googlecode.objectify.TestingJunit";
   }
 
   public void testIfWorks() {

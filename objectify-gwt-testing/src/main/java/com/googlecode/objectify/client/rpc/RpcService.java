@@ -10,4 +10,6 @@ import com.googlecode.objectify.shared.domain.Person;
 @RemoteServiceRelativePath("rpc")
 public interface RpcService extends RemoteService {
   Person getPerson();
+  
+  Person savePerson(Person person);
 }

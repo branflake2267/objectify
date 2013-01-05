@@ -22,7 +22,12 @@ public class StdRef_ServerCustomFieldSerializer extends ServerCustomFieldSeriali
     {
         Key<?> key = (Key<?>) streamReader.readObject();
         Object value = streamReader.readObject();
-        instance = new StdRef(key, value);
+
+        if (key == null) {
+            instance = new StdRef(value);
+        } else {
+            instance = new StdRef(key, value);
+        }
     }
 
     @Override
@@ -31,7 +36,12 @@ public class StdRef_ServerCustomFieldSerializer extends ServerCustomFieldSeriali
     {
         Key<?> key = (Key<?>) streamReader.readObject();
         Object value = streamReader.readObject();
-        instance = new StdRef(key, value);
+
+        if (key == null) {
+            instance = new StdRef(value);
+        } else {
+            instance = new StdRef(key, value);
+        }
     }
 
     @Override
