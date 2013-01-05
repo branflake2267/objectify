@@ -162,6 +162,15 @@
     </build>
 
     <dependencies>
+        <!-- Objectify -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>objectify</artifactId>
+            <version>${project.version}</version>
+            <!-- <scope>provided</scope> -->
+            <!-- mvn install objectify -->
+        </dependency>
+    
         <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -219,21 +228,13 @@
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
             <version>${gae.version}</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
             <version>${gae.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Objectify -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>objectify</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
