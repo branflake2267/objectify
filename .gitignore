@@ -9,3 +9,5 @@ test-output
 bin**
 .project
 .classpath
+objectify-gwt-testing/gwt-unitCache/
+objectify-gwt-testing/www-test/
