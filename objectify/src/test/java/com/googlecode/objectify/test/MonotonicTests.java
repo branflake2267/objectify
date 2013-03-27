@@ -11,32 +11,30 @@ import com.googlecode.objectify.util.Monotonic;
 
 /**
  */
-public class MonotonicTests extends TestBase
-{
-	@Entity
-	@Cache
-	public static class HasNumber
-	{
-		@Id Long id;
-		long number;
-	}
+public class MonotonicTests extends TestBase {
+  @Entity
+  @Cache
+  public static class HasNumber {
+    @Id
+    Long id;
+    long number;
+  }
 
-	/** */
-	@Test
-	public void testMonotonic() throws Exception
-	{
-		this.fact.register(HasNumber.class);
+  /** */
+  @Test
+  public void testMonotonic() throws Exception {
+    this.fact.register(HasNumber.class);
 
-		TestObjectify ofy = fact.begin();
-		
-		HasNumber hn = new HasNumber();
-		hn.number = Monotonic.next(ofy, HasNumber.class, "number");
-		assert hn.number == 1;
-		
-		ofy.put(hn);
-		
-		hn = new HasNumber();
-		hn.number = Monotonic.next(ofy, HasNumber.class, "number");
-		assert hn.number == 2;
-	}
+    TestObjectify ofy = fact.begin();
+
+    HasNumber hn = new HasNumber();
+    hn.number = Monotonic.next(ofy, HasNumber.class, "number");
+    assert hn.number == 1;
+
+    ofy.put(hn);
+
+    hn = new HasNumber();
+    hn.number = Monotonic.next(ofy, HasNumber.class, "number");
+    assert hn.number == 2;
+  }
 }

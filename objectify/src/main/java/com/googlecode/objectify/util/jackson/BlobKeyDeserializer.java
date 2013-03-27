@@ -13,15 +13,15 @@ import com.google.appengine.api.blobstore.BlobKey;
  */
 public class BlobKeyDeserializer extends StdDeserializer<BlobKey> {
 
-	/** */
-	public BlobKeyDeserializer() {
-		super(BlobKey.class);
-	}
+  /** */
+  public BlobKeyDeserializer() {
+    super(BlobKey.class);
+  }
 
-	/** */
-	@Override
-	public BlobKey deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		String keyStr = jp.getText();
-		return new BlobKey(keyStr);
-	}
+  /** */
+  @Override
+  public BlobKey deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    String keyStr = jp.getText();
+    return new BlobKey(keyStr);
+  }
 }

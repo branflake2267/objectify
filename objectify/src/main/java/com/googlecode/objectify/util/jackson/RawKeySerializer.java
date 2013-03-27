@@ -14,8 +14,9 @@ import com.google.appengine.api.datastore.KeyFactory;
  */
 public class RawKeySerializer extends JsonSerializer<Key> {
 
-	@Override
-	public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeString(KeyFactory.keyToString(value));
-	}
+  @Override
+  public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+      JsonProcessingException {
+    jgen.writeString(KeyFactory.keyToString(value));
+  }
 }

@@ -19,81 +19,75 @@ import com.googlecode.objectify.test.util.TestObjectify;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class ArrayTests extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(ArrayTests.class.getName());
-	
-	/** */
-	@BeforeMethod
-	public void setUpArrayTests()
-	{
-		fact.register(HasArrays.class);
-	}
-	
-	/** */
-	@Test
-	public void testStringArrays() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
-		
-		HasArrays hasa = new HasArrays();
-		hasa.strings = new String[] { "red", "green" };
-		
-		Key<HasArrays> k = ofy.save().entity(hasa).now();
+public class ArrayTests extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(ArrayTests.class.getName());
 
-		HasArrays fetched = ofy.load().key(k).get();
+  /** */
+  @BeforeMethod
+  public void setUpArrayTests() {
+    fact.register(HasArrays.class);
+  }
 
-		assert Arrays.equals(fetched.strings, hasa.strings);
-	}
+  /** */
+  @Test
+  public void testStringArrays() throws Exception {
+    TestObjectify ofy = this.fact.begin();
 
-	/** */
-	@Test
-	public void testIntArrays() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
-		
-		HasArrays hasa = new HasArrays();
-		hasa.ints = new int[] { 5, 6 };
-		
-		Key<HasArrays> k = ofy.save().entity(hasa).now();
+    HasArrays hasa = new HasArrays();
+    hasa.strings = new String[] {"red", "green"};
 
-		HasArrays fetched = ofy.load().key(k).get();
+    Key<HasArrays> k = ofy.save().entity(hasa).now();
 
-		assert Arrays.equals(fetched.ints, hasa.ints);
-	}
+    HasArrays fetched = ofy.load().key(k).get();
 
-	/** */
-	@Test
-	public void testIntegerArrays() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
-		
-		HasArrays hasa = new HasArrays();
-		hasa.integers = new Integer[] { 5, 6 };
-		
-		Key<HasArrays> k = ofy.save().entity(hasa).now();
+    assert Arrays.equals(fetched.strings, hasa.strings);
+  }
 
-		HasArrays fetched = ofy.load().key(k).get();
+  /** */
+  @Test
+  public void testIntArrays() throws Exception {
+    TestObjectify ofy = this.fact.begin();
 
-		assert Arrays.equals(fetched.integers, hasa.integers);
-	}
+    HasArrays hasa = new HasArrays();
+    hasa.ints = new int[] {5, 6};
 
-	/** */
-	@Test
-	public void testLongArrays() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
-		
-		HasArrays hasa = new HasArrays();
-		hasa.longs = new long[] { 5, 6 };
-		
-		Key<HasArrays> k = ofy.save().entity(hasa).now();
+    Key<HasArrays> k = ofy.save().entity(hasa).now();
 
-		HasArrays fetched = ofy.load().key(k).get();
+    HasArrays fetched = ofy.load().key(k).get();
 
-		assert Arrays.equals(fetched.longs, hasa.longs);
-	}
+    assert Arrays.equals(fetched.ints, hasa.ints);
+  }
+
+  /** */
+  @Test
+  public void testIntegerArrays() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    HasArrays hasa = new HasArrays();
+    hasa.integers = new Integer[] {5, 6};
+
+    Key<HasArrays> k = ofy.save().entity(hasa).now();
+
+    HasArrays fetched = ofy.load().key(k).get();
+
+    assert Arrays.equals(fetched.integers, hasa.integers);
+  }
+
+  /** */
+  @Test
+  public void testLongArrays() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    HasArrays hasa = new HasArrays();
+    hasa.longs = new long[] {5, 6};
+
+    Key<HasArrays> k = ofy.save().entity(hasa).now();
+
+    HasArrays fetched = ofy.load().key(k).get();
+
+    assert Arrays.equals(fetched.longs, hasa.longs);
+  }
 
 }

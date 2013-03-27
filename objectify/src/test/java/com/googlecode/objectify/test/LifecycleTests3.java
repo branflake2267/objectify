@@ -14,46 +14,50 @@ import com.googlecode.objectify.test.util.TestObjectify;
 /**
  * Trying to narrow down a specific problem.
  */
-public class LifecycleTests3 extends TestBase
-{
-	/** */
-	@Entity
-	public static class Event {
-		@Id Long id;
-		String foo;
-	}
+public class LifecycleTests3 extends TestBase {
+  /** */
+  @Entity
+  public static class Event {
+    @Id
+    Long id;
+    String foo;
+  }
 
-	/** */
-	@Entity
-	public static class Product {
-		@Load @Parent Ref<Event> event;
-		@Id Long id;
+  /** */
+  @Entity
+  public static class Product {
+    @Load
+    @Parent
+    Ref<Event> event;
+    @Id
+    Long id;
 
-		@OnLoad void onLoad() {
-			assert event.get().foo.equals("fooValue");
-		}
-	}
+    @OnLoad
+    void onLoad() {
+      assert event.get().foo.equals("fooValue");
+    }
+  }
 
-	/**
-	 * More complicated test of a more complicated structure
-	 */
-	@Test
-	public void loadingRefInOnLoad() throws Exception {
-		fact.register(Event.class);
-		fact.register(Product.class);
+  /**
+   * More complicated test of a more complicated structure
+   */
+  @Test
+  public void loadingRefInOnLoad() throws Exception {
+    fact.register(Event.class);
+    fact.register(Product.class);
 
-		TestObjectify ofy = fact.begin();
+    TestObjectify ofy = fact.begin();
 
-		Event event = new Event();
-		event.foo = "fooValue";
-		ofy.put(event);
+    Event event = new Event();
+    event.foo = "fooValue";
+    ofy.put(event);
 
-		Product prod = new Product();
-		prod.event = Ref.create(event);
-		ofy.put(prod);
+    Product prod = new Product();
+    prod.event = Ref.create(event);
+    ofy.put(prod);
 
-		ofy.clear();
-		Product fetched = ofy.load().entity(prod).get();
-		assert fetched.event.get().foo.equals("fooValue");
-	}
+    ofy.clear();
+    Product fetched = ofy.load().entity(prod).get();
+    assert fetched.event.get().foo.equals("fooValue");
+  }
 }

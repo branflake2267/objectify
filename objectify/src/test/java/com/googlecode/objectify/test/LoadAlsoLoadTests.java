@@ -21,55 +21,53 @@ import com.googlecode.objectify.test.util.TestObjectify;
 
 /**
  * More tests of using the @AlsoLoad annotation combined with @Load
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class LoadAlsoLoadTests extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(LoadAlsoLoadTests.class.getName());
+public class LoadAlsoLoadTests extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(LoadAlsoLoadTests.class.getName());
 
-	/** */
-	@Entity
-	@Cache
-	static class HasConcrete
-	{
-		@Id Long id;
-		String bar;
+  /** */
+  @Entity
+  @Cache
+  static class HasConcrete {
+    @Id
+    Long id;
+    String bar;
 
-		public void cruft(@Load @AlsoLoad("foo") Ref<Trivial> triv) {
-			this.bar = triv.get().getSomeString();
-		}
-	}
+    public void cruft(@Load @AlsoLoad("foo") Ref<Trivial> triv) {
+      this.bar = triv.get().getSomeString();
+    }
+  }
 
-	/**
+  /**
 	 */
-	@BeforeMethod
-	public void setUp()
-	{
-		super.setUp();
+  @BeforeMethod
+  public void setUp() {
+    super.setUp();
 
-		this.fact.register(HasConcrete.class);
-		this.fact.register(Trivial.class);
-	}
+    this.fact.register(HasConcrete.class);
+    this.fact.register(Trivial.class);
+  }
 
-	/** */
-	@Test
-	public void alsoLoadWorksWithLoad() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
+  /** */
+  @Test
+  public void alsoLoadWorksWithLoad() throws Exception {
+    TestObjectify ofy = this.fact.begin();
 
-		Trivial triv = new Trivial("someString", 123L);
-		Key<Trivial> trivKey = ofy.save().entity(triv).now();
+    Trivial triv = new Trivial("someString", 123L);
+    Key<Trivial> trivKey = ofy.save().entity(triv).now();
 
-		com.google.appengine.api.datastore.Entity ent = new com.google.appengine.api.datastore.Entity(Key.getKind(HasConcrete.class));
-		ent.setProperty("foo", trivKey.getRaw());
-		ds().put(null, ent);
+    com.google.appengine.api.datastore.Entity ent = new com.google.appengine.api.datastore.Entity(
+        Key.getKind(HasConcrete.class));
+    ent.setProperty("foo", trivKey.getRaw());
+    ds().put(null, ent);
 
-		Key<HasConcrete> key = Key.create(ent.getKey());
-		HasConcrete fetched = ofy.load().key(key).get();
+    Key<HasConcrete> key = Key.create(ent.getKey());
+    HasConcrete fetched = ofy.load().key(key).get();
 
-		assert fetched.bar.equals(triv.getSomeString());
-	}
+    assert fetched.bar.equals(triv.getSomeString());
+  }
 }

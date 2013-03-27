@@ -26,86 +26,83 @@ import com.googlecode.objectify.test.util.TestObjectify;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class AlsoLoadTests2 extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(AlsoLoadTests2.class.getName());
-	
-	/** */
-	public static final String TEST_VALUE = "blah";
-	
-	/** */
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	static class MethodOverridesField
-	{
-		@Id Long id;
-		@IgnoreLoad String foo;
-		String bar;
-		public void set(@AlsoLoad("foo") String overrides)
-		{
-			this.bar = overrides;
-		}
-	}
-	
-	/**
-	 * Add an entry to the database that should never come back from null queries.
-	 */
-	@BeforeMethod
-	public void setUp()
-	{
-		super.setUp();
-		
-		this.fact.register(MethodOverridesField.class);
-	}
+public class AlsoLoadTests2 extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(AlsoLoadTests2.class.getName());
 
-	/** */
-	@Test
-	public void testMethodOverridingField() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
-		
-		com.google.appengine.api.datastore.Entity ent = new com.google.appengine.api.datastore.Entity(Key.getKind(MethodOverridesField.class));
-		ent.setProperty("foo", TEST_VALUE);
-		ds().put(ent);
-		
-		Key<MethodOverridesField> key = Key.create(ent.getKey());
-		MethodOverridesField fetched = ofy.load().key(key).get();
-		
-		assert fetched.foo == null;
-		assert fetched.bar.equals(TEST_VALUE);
-	}
+  /** */
+  public static final String TEST_VALUE = "blah";
 
-	@com.googlecode.objectify.annotation.Entity
-	public static class HasMap
-	{
-		@Id
-		Long id;
-		@AlsoLoad("alsoPrimitives")
-		Map<String, Long> primitives = new HashMap<String, Long>();
-	}
+  /** */
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  static class MethodOverridesField {
+    @Id
+    Long id;
+    @IgnoreLoad
+    String foo;
+    String bar;
 
-	@Test
-	public void testAlsoLoadMap() throws Exception
-	{
-		this.fact.register(HasMap.class);
+    public void set(@AlsoLoad("foo") String overrides) {
+      this.bar = overrides;
+    }
+  }
 
-		TestObjectify ofy = this.fact.begin();
-		DatastoreService ds = ds();
+  /**
+   * Add an entry to the database that should never come back from null queries.
+   */
+  @BeforeMethod
+  public void setUp() {
+    super.setUp();
 
-		Entity ent = new Entity(Key.getKind(HasMap.class));
-		ent.setProperty("alsoPrimitives.one", 1L);
-		ent.setProperty("primitives.two", 2L);
-		ds.put(ent);
+    this.fact.register(MethodOverridesField.class);
+  }
 
-		Key<HasMap> key = Key.create(ent.getKey());
-		
-		try {
-			ofy.load().key(key).get();
-			assert false;
-		} catch (TranslateException ex) {
-			// couldn't load conflicting values
-		}
-	}
+  /** */
+  @Test
+  public void testMethodOverridingField() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    com.google.appengine.api.datastore.Entity ent = new com.google.appengine.api.datastore.Entity(
+        Key.getKind(MethodOverridesField.class));
+    ent.setProperty("foo", TEST_VALUE);
+    ds().put(ent);
+
+    Key<MethodOverridesField> key = Key.create(ent.getKey());
+    MethodOverridesField fetched = ofy.load().key(key).get();
+
+    assert fetched.foo == null;
+    assert fetched.bar.equals(TEST_VALUE);
+  }
+
+  @com.googlecode.objectify.annotation.Entity
+  public static class HasMap {
+    @Id
+    Long id;
+    @AlsoLoad("alsoPrimitives")
+    Map<String, Long> primitives = new HashMap<String, Long>();
+  }
+
+  @Test
+  public void testAlsoLoadMap() throws Exception {
+    this.fact.register(HasMap.class);
+
+    TestObjectify ofy = this.fact.begin();
+    DatastoreService ds = ds();
+
+    Entity ent = new Entity(Key.getKind(HasMap.class));
+    ent.setProperty("alsoPrimitives.one", 1L);
+    ent.setProperty("primitives.two", 2L);
+    ds.put(ent);
+
+    Key<HasMap> key = Key.create(ent.getKey());
+
+    try {
+      ofy.load().key(key).get();
+      assert false;
+    } catch (TranslateException ex) {
+      // couldn't load conflicting values
+    }
+  }
 }

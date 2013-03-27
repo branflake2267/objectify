@@ -12,44 +12,43 @@ import com.googlecode.objectify.util.ResultProxy;
 
 /**
  * Implementation of QueryKeys.
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-class QueryKeysImpl<T> implements QueryKeys<T>
-{
-	QueryImpl<T> impl;
-	
-	/** */
-	QueryKeysImpl(QueryImpl<T> query) {
-		assert query.actual.isKeysOnly();
-		this.impl = query;
-	}
+class QueryKeysImpl<T> implements QueryKeys<T> {
+  QueryImpl<T> impl;
 
-	@Override
-	public Ref<T> first() {
-		// We are already keysonly
-		return impl.first();
-	}
+  /** */
+  QueryKeysImpl(QueryImpl<T> query) {
+    assert query.actual.isKeysOnly();
+    this.impl = query;
+  }
 
-	@Override
-	public QueryResultIterable<Key<T>> iterable() {
-		return impl.keysIterable();
-	}
+  @Override
+  public Ref<T> first() {
+    // We are already keysonly
+    return impl.first();
+  }
 
-	@Override
-	public List<Key<T>> list() {
-		return ResultProxy.makeAsyncList(impl.chunk(Integer.MAX_VALUE).keysIterable());
-	}
+  @Override
+  public QueryResultIterable<Key<T>> iterable() {
+    return impl.keysIterable();
+  }
 
-	@Override
-	public QueryResultIterator<Key<T>> iterator() {
-		return iterable().iterator();
-	}
+  @Override
+  public List<Key<T>> list() {
+    return ResultProxy.makeAsyncList(impl.chunk(Integer.MAX_VALUE).keysIterable());
+  }
 
-	@Override
-	public QueryExecute<T> asEntities() {
-		// Since we are already keys-only, the original query should spit out partials
-		return impl;
-	}
-	
+  @Override
+  public QueryResultIterator<Key<T>> iterator() {
+    return iterable().iterator();
+  }
+
+  @Override
+  public QueryExecute<T> asEntities() {
+    // Since we are already keys-only, the original query should spit out partials
+    return impl;
+  }
+
 }

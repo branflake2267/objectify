@@ -13,8 +13,9 @@ import com.google.appengine.api.blobstore.BlobKey;
  */
 public class BlobKeySerializer extends JsonSerializer<BlobKey> {
 
-	@Override
-	public void serialize(BlobKey value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeString(value.getKeyString());
-	}
+  @Override
+  public void serialize(BlobKey value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+      JsonProcessingException {
+    jgen.writeString(value.getKeyString());
+  }
 }

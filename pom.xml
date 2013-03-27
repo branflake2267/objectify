@@ -19,7 +19,7 @@
     <description>The simplest convenient interface to the Google App Engine datastore</description>
 
     <properties>
-        <gae.version>1.7.4</gae.version>
+        <gae.version>1.7.6</gae.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

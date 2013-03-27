@@ -18,172 +18,192 @@ import com.googlecode.objectify.test.util.TestObjectify;
 /**
  * Tests the lifecycle annotations
  */
-public class LifecycleTests extends TestBase
-{
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasLifecycle
-	{
-		@Id Long id;
-		boolean onSaved;
-		boolean onSavedWithObjectify;
-		boolean onLoaded;
-		boolean onLoadedWithObjectify;
-		boolean onLoadedWithLoadContext;
+public class LifecycleTests extends TestBase {
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasLifecycle {
+    @Id
+    Long id;
+    boolean onSaved;
+    boolean onSavedWithObjectify;
+    boolean onLoaded;
+    boolean onLoadedWithObjectify;
+    boolean onLoadedWithLoadContext;
 
-		@OnSave void onSave() { this.onSaved = true; }
-		@OnSave void onSave(Objectify ofy) { this.onSavedWithObjectify = true; }
-		@OnLoad void onLoad() { this.onLoaded = true; }
-		@OnLoad void onLoad(Objectify ofy) { this.onLoadedWithObjectify = true; }
+    @OnSave
+    void onSave() {
+      this.onSaved = true;
+    }
 
-		@OnLoad void onLoad(LoadContext ctx) {
-			this.onLoadedWithLoadContext = true;
-			// Check to make sure that the correct wrapper made it through
-			assert ctx.getLoader().getObjectify() instanceof TestObjectify;
-		}
-	}
+    @OnSave
+    void onSave(Objectify ofy) {
+      this.onSavedWithObjectify = true;
+    }
 
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasInheritedLifecycle extends HasLifecycle {}
+    @OnLoad
+    void onLoad() {
+      this.onLoaded = true;
+    }
 
-	/** */
-	@Test
-	public void testLifecycle() throws Exception
-	{
-		this.fact.register(HasLifecycle.class);
-		this.fact.register(HasInheritedLifecycle.class);
+    @OnLoad
+    void onLoad(Objectify ofy) {
+      this.onLoadedWithObjectify = true;
+    }
 
-		HasLifecycle life1 = new HasLifecycle();
-		HasLifecycle fetched = this.putClearGet(life1);
+    @OnLoad
+    void onLoad(LoadContext ctx) {
+      this.onLoadedWithLoadContext = true;
+      // Check to make sure that the correct wrapper made it through
+      assert ctx.getLoader().getObjectify() instanceof TestObjectify;
+    }
+  }
 
-		assert fetched.onSaved;
-		assert fetched.onSavedWithObjectify;
-		assert fetched.onLoaded;	// would fail without session clear
-		assert fetched.onLoadedWithObjectify;
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasInheritedLifecycle extends HasLifecycle {
+  }
 
-		HasLifecycle life2 = new HasInheritedLifecycle();
-		fetched = this.putClearGet(life2);
+  /** */
+  @Test
+  public void testLifecycle() throws Exception {
+    this.fact.register(HasLifecycle.class);
+    this.fact.register(HasInheritedLifecycle.class);
 
-		assert fetched.onSaved;
-		assert fetched.onSavedWithObjectify;
-		assert fetched.onLoaded;	// would fail without session clear
-		assert fetched.onLoadedWithObjectify;
-	}
+    HasLifecycle life1 = new HasLifecycle();
+    HasLifecycle fetched = this.putClearGet(life1);
 
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasExceptionThrowingLifecycle
-	{
-		@Id Long id;
-		@OnSave void onSave() { throw new UnsupportedOperationException(); }
-	}
+    assert fetched.onSaved;
+    assert fetched.onSavedWithObjectify;
+    assert fetched.onLoaded; // would fail without session clear
+    assert fetched.onLoadedWithObjectify;
 
-	/** */
-	@Test
-	public void testExceptionInLifecycle() throws Exception
-	{
-		this.fact.register(HasExceptionThrowingLifecycle.class);
+    HasLifecycle life2 = new HasInheritedLifecycle();
+    fetched = this.putClearGet(life2);
 
-		try
-		{
-			this.putClearGet(new HasExceptionThrowingLifecycle());
-			assert false;
-		}
-		catch (UnsupportedOperationException ex)
-		{
-			// this is correct
-		}
-	}
+    assert fetched.onSaved;
+    assert fetched.onSavedWithObjectify;
+    assert fetched.onLoaded; // would fail without session clear
+    assert fetched.onLoadedWithObjectify;
+  }
 
-	/** */
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasLoad
-	{
-		@Id Long id;
-		@Load Ref<Trivial> triv;
-		@OnLoad void onLoad() {
-			assert triv != null;
-		}
-	}
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasExceptionThrowingLifecycle {
+    @Id
+    Long id;
 
-	/**
-	 * Make sure that lifecycle methods are called after @Load happens
-	 */
-	@Test
-	public void testLifecycleLoadTiming() throws Exception
-	{
-		fact.register(HasLoad.class);
-		fact.register(Trivial.class);
+    @OnSave
+    void onSave() {
+      throw new UnsupportedOperationException();
+    }
+  }
 
-		TestObjectify ofy = fact.begin();
+  /** */
+  @Test
+  public void testExceptionInLifecycle() throws Exception {
+    this.fact.register(HasExceptionThrowingLifecycle.class);
 
-		Trivial triv = new Trivial("foo", 123);
-		ofy.put(triv);
+    try {
+      this.putClearGet(new HasExceptionThrowingLifecycle());
+      assert false;
+    } catch (UnsupportedOperationException ex) {
+      // this is correct
+    }
+  }
 
-		HasLoad hl = new HasLoad();
-		hl.triv = Ref.create(triv);
-		ofy.put(hl);
+  /** */
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasLoad {
+    @Id
+    Long id;
+    @Load
+    Ref<Trivial> triv;
 
-		ofy.load().entity(hl).get();
-	}
+    @OnLoad
+    void onLoad() {
+      assert triv != null;
+    }
+  }
 
-	/** */
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class ParentThing
-	{
-		@Id Long id;
-		String foo;
-	}
+  /**
+   * Make sure that lifecycle methods are called after @Load happens
+   */
+  @Test
+  public void testLifecycleLoadTiming() throws Exception {
+    fact.register(HasLoad.class);
+    fact.register(Trivial.class);
 
-	/** */
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasParent
-	{
-		@Load @Parent Ref<ParentThing> parent;
-		@Id Long id;
-	}
+    TestObjectify ofy = fact.begin();
 
-	/** */
-	@com.googlecode.objectify.annotation.Entity
-	@Cache
-	public static class HasHasParent
-	{
-		@Id Long id;
-		@Load Ref<HasParent> hasParent;
+    Trivial triv = new Trivial("foo", 123);
+    ofy.put(triv);
 
-		@OnLoad void onLoad() {
-			assert hasParent.get().parent.get().foo.equals("fooValue");
-		}
-	}
+    HasLoad hl = new HasLoad();
+    hl.triv = Ref.create(triv);
+    ofy.put(hl);
 
-	/**
-	 * More complicated test of a more complicated structure
-	 */
-	@Test
-	public void testComplicatedLifecycle() throws Exception
-	{
-		fact.register(ParentThing.class);
-		fact.register(HasParent.class);
-		fact.register(HasHasParent.class);
+    ofy.load().entity(hl).get();
+  }
 
-		TestObjectify ofy = fact.begin();
+  /** */
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class ParentThing {
+    @Id
+    Long id;
+    String foo;
+  }
 
-		ParentThing pt = new ParentThing();
-		pt.foo = "fooValue";
-		ofy.put(pt);
+  /** */
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasParent {
+    @Load
+    @Parent
+    Ref<ParentThing> parent;
+    @Id
+    Long id;
+  }
 
-		HasParent hp = new HasParent();
-		hp.parent = Ref.create(pt);
-		ofy.put(hp);
+  /** */
+  @com.googlecode.objectify.annotation.Entity
+  @Cache
+  public static class HasHasParent {
+    @Id
+    Long id;
+    @Load
+    Ref<HasParent> hasParent;
 
-		HasHasParent hhp = new HasHasParent();
-		hhp.hasParent = Ref.create(hp);
-		ofy.put(hhp);
+    @OnLoad
+    void onLoad() {
+      assert hasParent.get().parent.get().foo.equals("fooValue");
+    }
+  }
 
-		ofy.load().entity(hhp).get();
-	}
+  /**
+   * More complicated test of a more complicated structure
+   */
+  @Test
+  public void testComplicatedLifecycle() throws Exception {
+    fact.register(ParentThing.class);
+    fact.register(HasParent.class);
+    fact.register(HasHasParent.class);
+
+    TestObjectify ofy = fact.begin();
+
+    ParentThing pt = new ParentThing();
+    pt.foo = "fooValue";
+    ofy.put(pt);
+
+    HasParent hp = new HasParent();
+    hp.parent = Ref.create(pt);
+    ofy.put(hp);
+
+    HasHasParent hhp = new HasHasParent();
+    hhp.hasParent = Ref.create(hp);
+    ofy.put(hhp);
+
+    ofy.load().entity(hhp).get();
+  }
 }

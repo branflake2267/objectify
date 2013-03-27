@@ -13,21 +13,19 @@ import com.googlecode.objectify.annotation.Id;
  */
 @Entity
 @Cache
-public class Criminal
-{
-	@Id
-	public Long id;
-	
-	@Embed
-	public Name[] aliases;
-	
-	@Embed
-	public List<Name> moreAliases;
+public class Criminal {
+  @Id
+  public Long id;
 
-	@Embed
-	public Set<Name> aliasesSet;
+  @Embed
+  public Name[] aliases;
 
-	public Criminal()
-	{
-	}
+  @Embed
+  public List<Name> moreAliases;
+
+  @Embed
+  public Set<Name> aliasesSet;
+
+  public Criminal() {
+  }
 }

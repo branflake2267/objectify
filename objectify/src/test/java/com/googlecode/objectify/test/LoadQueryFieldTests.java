@@ -20,70 +20,71 @@ import com.googlecode.objectify.test.util.TestObjectify;
 
 /**
  * Tests the fetching via queries
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class LoadQueryFieldTests extends TestBase
-{
-	Trivial t0;
-	Trivial t1;
-	Trivial tNone0;
-	Trivial tNone1;
-	Key<Trivial> k0;
-	Key<Trivial> k1;
-	Key<Trivial> kNone0;
-	Key<Trivial> kNone1;
+public class LoadQueryFieldTests extends TestBase {
+  Trivial t0;
+  Trivial t1;
+  Trivial tNone0;
+  Trivial tNone1;
+  Key<Trivial> k0;
+  Key<Trivial> k1;
+  Key<Trivial> kNone0;
+  Key<Trivial> kNone1;
 
-	/** */
-	@BeforeMethod
-	public void createTwo() {
-		fact.register(Trivial.class);
-		TestObjectify ofy = fact.begin();
+  /** */
+  @BeforeMethod
+  public void createTwo() {
+    fact.register(Trivial.class);
+    TestObjectify ofy = fact.begin();
 
-		t0 = new Trivial("foo", 11);
-		k0 = ofy.put(t0);
+    t0 = new Trivial("foo", 11);
+    k0 = ofy.put(t0);
 
-		t1 = new Trivial("bar", 22);
-		k1 = ofy.put(t1);
+    t1 = new Trivial("bar", 22);
+    k1 = ofy.put(t1);
 
-		tNone0 = new Trivial(123L, "fooNone", 33);
-		tNone1 = new Trivial(456L, "barNone", 44);
+    tNone0 = new Trivial(123L, "fooNone", 33);
+    tNone1 = new Trivial(456L, "barNone", 44);
 
-		kNone0 = Key.create(tNone0);
-		kNone1 = Key.create(tNone1);
-	}
+    kNone0 = Key.create(tNone0);
+    kNone1 = Key.create(tNone1);
+  }
 
-	/** */
-	@Entity
-	public static class HasEntities {
-		public @Id Long id;
-		public @Load Ref<Trivial> single;
-		public @Load List<Ref<Trivial>> multi = new ArrayList<Ref<Trivial>>();
-	}
+  /** */
+  @Entity
+  public static class HasEntities {
+    public @Id
+    Long id;
+    public @Load
+    Ref<Trivial> single;
+    public @Load
+    List<Ref<Trivial>> multi = new ArrayList<Ref<Trivial>>();
+  }
 
-	/** */
-	@Test
-	public void testTargetsExist() throws Exception
-	{
-		fact.register(HasEntities.class);
-		TestObjectify ofy = fact.begin();
+  /** */
+  @Test
+  public void testTargetsExist() throws Exception {
+    fact.register(HasEntities.class);
+    TestObjectify ofy = fact.begin();
 
-		HasEntities he = new HasEntities();
-		he.single = Ref.create(t0);
-		he.multi.add(Ref.create(t0));
-		he.multi.add(Ref.create(t1));
+    HasEntities he = new HasEntities();
+    he.single = Ref.create(t0);
+    he.multi.add(Ref.create(t0));
+    he.multi.add(Ref.create(t1));
 
-		Key<HasEntities> hekey = ofy.save().entity(he).now();
-		ofy.clear();
+    Key<HasEntities> hekey = ofy.save().entity(he).now();
+    ofy.clear();
 
-		HasEntities fetched = ofy.load().type(HasEntities.class).filterKey("=", hekey).first().get();
+    HasEntities fetched = ofy.load().type(HasEntities.class).filterKey("=", hekey).first().get();
 
-		assert fetched.single.get().getId().equals(t0.getId());
-		assert fetched.single.get().getSomeString().equals(t0.getSomeString());
+    assert fetched.single.get().getId().equals(t0.getId());
+    assert fetched.single.get().getSomeString().equals(t0.getSomeString());
 
-		assert fetched.multi.get(0).get() == fetched.single.get();
+    assert fetched.multi.get(0).get() == fetched.single.get();
 
-		assert fetched.multi.get(1).get().getId().equals(t1.getId());
-		assert fetched.multi.get(1).get().getSomeString().equals(t1.getSomeString());
-	}
+    assert fetched.multi.get(1).get().getId().equals(t1.getId());
+    assert fetched.multi.get(1).get().getSomeString().equals(t1.getSomeString());
+  }
 }

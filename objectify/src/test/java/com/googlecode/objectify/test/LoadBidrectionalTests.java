@@ -15,90 +15,107 @@ import com.googlecode.objectify.test.util.TestObjectify;
 
 /**
  * What happens when we @Load entities in two directions
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class LoadBidrectionalTests extends TestBase
-{
-	/** */
-	@Entity
-	public static class Top {
-		public @Id long id;
-		public @Load Ref<Bottom> bottom;
+public class LoadBidrectionalTests extends TestBase {
+  /** */
+  @Entity
+  public static class Top {
+    public @Id
+    long id;
+    public @Load
+    Ref<Bottom> bottom;
 
-		public Top() {}
-		public Top(long id) { this.id = id; }
-	}
+    public Top() {
+    }
 
-	/** */
-	@Entity
-	public static class Bottom {
-		public @Id long id;
-		public @Load Ref<Top> top;
+    public Top(long id) {
+      this.id = id;
+    }
+  }
 
-		public Bottom() {}
-		public Bottom(long id) { this.id = id; }
-	}
+  /** */
+  @Entity
+  public static class Bottom {
+    public @Id
+    long id;
+    public @Load
+    Ref<Top> top;
 
-	/** */
-	@Test
-	public void testBidirectional() throws Exception
-	{
-		fact.register(Top.class);
-		fact.register(Bottom.class);
+    public Bottom() {
+    }
 
-		TestObjectify ofy = fact.begin();
+    public Bottom(long id) {
+      this.id = id;
+    }
+  }
 
-		Top top = new Top(123);
-		Bottom bottom = new Bottom(456);
+  /** */
+  @Test
+  public void testBidirectional() throws Exception {
+    fact.register(Top.class);
+    fact.register(Bottom.class);
 
-		top.bottom = Ref.create(bottom);
-		bottom.top = Ref.create(top);
+    TestObjectify ofy = fact.begin();
 
-		ofy.put(top, bottom);
-		ofy.clear();
+    Top top = new Top(123);
+    Bottom bottom = new Bottom(456);
 
-		Top topFetched = ofy.load().entity(top).get();
+    top.bottom = Ref.create(bottom);
+    bottom.top = Ref.create(top);
 
-		assert topFetched.bottom.get().id == top.bottom.get().id;
-		assert topFetched.bottom.get().top.get().id == top.id;
-	}
+    ofy.put(top, bottom);
+    ofy.clear();
 
-	/** */
-	@Entity
-	public static class TopWithEmbed {
-		public @Id long id;
-		public BottomEmbed bottom;
+    Top topFetched = ofy.load().entity(top).get();
 
-		public TopWithEmbed() {}
-		public TopWithEmbed(long id) { this.id = id; }
-	}
+    assert topFetched.bottom.get().id == top.bottom.get().id;
+    assert topFetched.bottom.get().top.get().id == top.id;
+  }
 
-	/** */
-	@Embed
-	public static class BottomEmbed {
-		public @Load Ref<TopWithEmbed> top;
-		public BottomEmbed() {}
-	}
+  /** */
+  @Entity
+  public static class TopWithEmbed {
+    public @Id
+    long id;
+    public BottomEmbed bottom;
 
-	/** */
-	@Test
-	public void testBidirectionalEmbed() throws Exception
-	{
-		fact.register(TopWithEmbed.class);
+    public TopWithEmbed() {
+    }
 
-		TestObjectify ofy = fact.begin();
+    public TopWithEmbed(long id) {
+      this.id = id;
+    }
+  }
 
-		TopWithEmbed top = new TopWithEmbed(123);
-		top.bottom = new BottomEmbed();
-		top.bottom.top = Ref.create(top);
+  /** */
+  @Embed
+  public static class BottomEmbed {
+    public @Load
+    Ref<TopWithEmbed> top;
 
-		ofy.put(top);
-		ofy.clear();
+    public BottomEmbed() {
+    }
+  }
 
-		TopWithEmbed topFetched = ofy.load().entity(top).get();
+  /** */
+  @Test
+  public void testBidirectionalEmbed() throws Exception {
+    fact.register(TopWithEmbed.class);
 
-		assert topFetched.bottom.top.get().id == top.id;
-	}
+    TestObjectify ofy = fact.begin();
+
+    TopWithEmbed top = new TopWithEmbed(123);
+    top.bottom = new BottomEmbed();
+    top.bottom.top = Ref.create(top);
+
+    ofy.put(top);
+    ofy.clear();
+
+    TopWithEmbed topFetched = ofy.load().entity(top).get();
+
+    assert topFetched.bottom.top.get().id == top.id;
+  }
 
 }

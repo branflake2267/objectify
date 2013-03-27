@@ -9,16 +9,13 @@ import com.google.appengine.api.utils.FutureWrapper;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-abstract public class SimpleFutureWrapper<K, V> extends FutureWrapper<K, V>
-{
-	public SimpleFutureWrapper(Future<K> base)
-	{
-		super(base);
-	}
+abstract public class SimpleFutureWrapper<K, V> extends FutureWrapper<K, V> {
+  public SimpleFutureWrapper(Future<K> base) {
+    super(base);
+  }
 
-	@Override
-	protected Throwable convertException(Throwable cause)
-	{
-		return cause;
-	}
+  @Override
+  protected Throwable convertException(Throwable cause) {
+    return cause;
+  }
 }

@@ -23,51 +23,47 @@ import com.googlecode.objectify.test.util.TestObjectify;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class FieldVisibilityTests extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(FieldVisibilityTests.class.getName());
-	
-	/** */
-	@Entity
-	@Unindex
-	static class ThingWithPrivates
-	{
-		@Id
-		private Long id;
-		
-		@Index
-		private Set<String> stuff = new HashSet<String>();
-	}
-	
-	/** */
-	@Test
-	public void testGet() throws Exception
-	{
-		this.fact.register(ThingWithPrivates.class);
-		
-		ThingWithPrivates thing = new ThingWithPrivates();
-		//thing.stuff.add("foo");
-		
-		ThingWithPrivates fetched = this.putClearGet(thing);
-		
-		assert fetched.id.equals(thing.id);
-	}
+public class FieldVisibilityTests extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(FieldVisibilityTests.class.getName());
 
-	/** */
-	@Test
-	public void testQuery() throws Exception
-	{
-		this.fact.register(ThingWithPrivates.class);
-		
-		TestObjectify ofy = this.fact.begin();
-		
-		ThingWithPrivates thing = new ThingWithPrivates();
-		thing.stuff.add("foo");
-		
-		ofy.put(thing);
-		
-		ofy.load().type(ThingWithPrivates.class).filter("stuff", "foo").list();
-	}
+  /** */
+  @Entity
+  @Unindex
+  static class ThingWithPrivates {
+    @Id
+    private Long id;
+
+    @Index
+    private Set<String> stuff = new HashSet<String>();
+  }
+
+  /** */
+  @Test
+  public void testGet() throws Exception {
+    this.fact.register(ThingWithPrivates.class);
+
+    ThingWithPrivates thing = new ThingWithPrivates();
+    // thing.stuff.add("foo");
+
+    ThingWithPrivates fetched = this.putClearGet(thing);
+
+    assert fetched.id.equals(thing.id);
+  }
+
+  /** */
+  @Test
+  public void testQuery() throws Exception {
+    this.fact.register(ThingWithPrivates.class);
+
+    TestObjectify ofy = this.fact.begin();
+
+    ThingWithPrivates thing = new ThingWithPrivates();
+    thing.stuff.add("foo");
+
+    ofy.put(thing);
+
+    ofy.load().type(ThingWithPrivates.class).filter("stuff", "foo").list();
+  }
 }

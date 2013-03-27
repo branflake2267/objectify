@@ -24,94 +24,87 @@ import com.googlecode.objectify.test.util.TestObjectify;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class EnumTests extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(EnumTests.class.getName());
+public class EnumTests extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(EnumTests.class.getName());
 
-	/** */
-	@Entity
-	@Cache
-	@Index
-	public static class HasEnums
-	{
-		public enum Color {
-			RED,
-			GREEN
-		}
-		
-		public @Id Long id;
-		
-		public Color color;
-		public List<Color> colors;
-		public Color[] colorsArray;
-	}
+  /** */
+  @Entity
+  @Cache
+  @Index
+  public static class HasEnums {
+    public enum Color {
+      RED, GREEN
+    }
 
-	/** */
-	@Override
-	@BeforeMethod
-	public void setUp()
-	{
-		super.setUp();
-		this.fact.register(HasEnums.class);
-	}
-	
-	/** */
-	@Test
-	public void testSimpleEnum() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
+    public @Id
+    Long id;
 
-		HasEnums he = new HasEnums();
-		he.color = Color.RED;
-		Key<HasEnums> key = ofy.put(he);
-		
-		he = ofy.get(key);
-		assert he.color == Color.RED;
-	}
+    public Color color;
+    public List<Color> colors;
+    public Color[] colorsArray;
+  }
 
-	/** */
-	@Test(groups={"now"})
-	public void testEnumsList() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
+  /** */
+  @Override
+  @BeforeMethod
+  public void setUp() {
+    super.setUp();
+    this.fact.register(HasEnums.class);
+  }
 
-		HasEnums he = new HasEnums();
-		he.colors = Arrays.asList(Color.RED, Color.GREEN);
-		Key<HasEnums> key = ofy.put(he);
-		
-		he = ofy.get(key);
-		assert he.colors.get(0).equals(Color.RED) : "Expected RED got " + he.colors.get(0);
-		assert he.colors.get(1).equals(Color.GREEN) : "Expected GREEN got " + he.colors.get(1);
-	}
+  /** */
+  @Test
+  public void testSimpleEnum() throws Exception {
+    TestObjectify ofy = this.fact.begin();
 
-	/** */
-	@Test
-	public void testEnumsArray() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
+    HasEnums he = new HasEnums();
+    he.color = Color.RED;
+    Key<HasEnums> key = ofy.put(he);
 
-		HasEnums he = new HasEnums();
-		he.colorsArray = new Color[] { Color.RED, Color.GREEN };
-		Key<HasEnums> key = ofy.put(he);
-		
-		he = ofy.get(key);
-		assert he.colorsArray[0] == Color.RED;
-		assert he.colorsArray[1] == Color.GREEN;
-	}
-	
-	/** */
-	@Test
-	public void testFilterByEnum() throws Exception
-	{
-		TestObjectify ofy = this.fact.begin();
+    he = ofy.get(key);
+    assert he.color == Color.RED;
+  }
 
-		HasEnums he = new HasEnums();
-		he.color = Color.GREEN;
-		ofy.put(he);
-		
-		HasEnums fetched = ofy.load().type(HasEnums.class).filter("color =", Color.GREEN).first().get();
-		assert fetched.id.equals(he.id);
-	}
+  /** */
+  @Test(groups = {"now"})
+  public void testEnumsList() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    HasEnums he = new HasEnums();
+    he.colors = Arrays.asList(Color.RED, Color.GREEN);
+    Key<HasEnums> key = ofy.put(he);
+
+    he = ofy.get(key);
+    assert he.colors.get(0).equals(Color.RED) : "Expected RED got " + he.colors.get(0);
+    assert he.colors.get(1).equals(Color.GREEN) : "Expected GREEN got " + he.colors.get(1);
+  }
+
+  /** */
+  @Test
+  public void testEnumsArray() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    HasEnums he = new HasEnums();
+    he.colorsArray = new Color[] {Color.RED, Color.GREEN};
+    Key<HasEnums> key = ofy.put(he);
+
+    he = ofy.get(key);
+    assert he.colorsArray[0] == Color.RED;
+    assert he.colorsArray[1] == Color.GREEN;
+  }
+
+  /** */
+  @Test
+  public void testFilterByEnum() throws Exception {
+    TestObjectify ofy = this.fact.begin();
+
+    HasEnums he = new HasEnums();
+    he.color = Color.GREEN;
+    ofy.put(he);
+
+    HasEnums fetched = ofy.load().type(HasEnums.class).filter("color =", Color.GREEN).first().get();
+    assert fetched.id.equals(he.id);
+  }
 }

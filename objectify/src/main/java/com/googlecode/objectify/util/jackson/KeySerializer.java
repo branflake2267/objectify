@@ -14,8 +14,9 @@ import com.googlecode.objectify.Key;
 @SuppressWarnings("rawtypes")
 public class KeySerializer extends JsonSerializer<Key> {
 
-	@Override
-	public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeString(value.getString());
-	}
+  @Override
+  public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+      JsonProcessingException {
+    jgen.writeString(value.getString());
+  }
 }

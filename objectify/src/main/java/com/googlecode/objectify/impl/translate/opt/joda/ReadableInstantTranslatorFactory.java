@@ -16,35 +16,32 @@ import com.googlecode.objectify.impl.translate.ValueTranslator;
 import com.googlecode.objectify.impl.translate.ValueTranslatorFactory;
 import com.googlecode.objectify.repackaged.gentyref.GenericTypeReflector;
 
-
 /**
- * Converts Joda ReadableInstants (DateTime, DateMidnight, etc) into java.util.Date 
+ * Converts Joda ReadableInstants (DateTime, DateMidnight, etc) into java.util.Date
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class ReadableInstantTranslatorFactory extends ValueTranslatorFactory<ReadableInstant, Date>
-{
-	public ReadableInstantTranslatorFactory() {
-		super(ReadableInstant.class);
-	}
+public class ReadableInstantTranslatorFactory extends ValueTranslatorFactory<ReadableInstant, Date> {
+  public ReadableInstantTranslatorFactory() {
+    super(ReadableInstant.class);
+  }
 
-	@Override
-	protected ValueTranslator<ReadableInstant, Date> createSafe(Path path, Property property, Type type, CreateContext ctx)
-	{
-		final Class<?> clazz = GenericTypeReflector.erase(type);
-		
-		return new ValueTranslator<ReadableInstant, Date>(path, Date.class) {
-			@Override
-			protected ReadableInstant loadValue(Date value, LoadContext ctx) {
-				// All the Joda instants have a constructor that will take a Date
-				Constructor<?> ctor = TypeUtils.getConstructor(clazz, Object.class);
-				return (ReadableInstant)TypeUtils.newInstance(ctor, value);
-			}
+  @Override
+  protected ValueTranslator<ReadableInstant, Date> createSafe(Path path, Property property, Type type, CreateContext ctx) {
+    final Class<?> clazz = GenericTypeReflector.erase(type);
 
-			@Override
-			protected Date saveValue(ReadableInstant value, SaveContext ctx) {
-				return value.toInstant().toDate();
-			}
-		};
-	}
+    return new ValueTranslator<ReadableInstant, Date>(path, Date.class) {
+      @Override
+      protected ReadableInstant loadValue(Date value, LoadContext ctx) {
+        // All the Joda instants have a constructor that will take a Date
+        Constructor<?> ctor = TypeUtils.getConstructor(clazz, Object.class);
+        return (ReadableInstant) TypeUtils.newInstance(ctor, value);
+      }
+
+      @Override
+      protected Date saveValue(ReadableInstant value, SaveContext ctx) {
+        return value.toInstant().toDate();
+      }
+    };
+  }
 }

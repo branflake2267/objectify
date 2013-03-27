@@ -13,49 +13,46 @@ import com.googlecode.objectify.annotation.Load;
 
 /**
  * An employee with a key for a Many to one test case.
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  * @author Jon Stevens
  */
 @Entity
 @Cache
-public class Employee
-{
-	@Id
-	public String name;
+public class Employee {
+  @Id
+  public String name;
 
-	@Index
-	public Key<Employee> manager;
+  @Index
+  public Key<Employee> manager;
 
-	@Index @Load
-	public Ref<Employee> manager2;
+  @Index
+  @Load
+  public Ref<Employee> manager2;
 
-	/** Default constructor must always exist */
-	public Employee() {}
+  /** Default constructor must always exist */
+  public Employee() {
+  }
 
-	/** set a name */
-	public Employee(String name)
-	{
-		this.name = name;
-	}
+  /** set a name */
+  public Employee(String name) {
+    this.name = name;
+  }
 
-	/** set a name and manager */
-	public Employee(String name, Key<Employee> manager)
-	{
-		this.name = name;
-		this.manager = manager;
-	}
+  /** set a name and manager */
+  public Employee(String name, Key<Employee> manager) {
+    this.name = name;
+    this.manager = manager;
+  }
 
-	/** set a name and manager */
-	public Employee(String name, Employee manager2)
-	{
-		this.name = name;
-		this.manager2 = Ref.create(manager2);
-	}
+  /** set a name and manager */
+  public Employee(String name, Employee manager2) {
+    this.name = name;
+    this.manager2 = Ref.create(manager2);
+  }
 
-	/** */
-	public String getName()
-	{
-		return this.name;
-	}
+  /** */
+  public String getName() {
+    return this.name;
+  }
 }

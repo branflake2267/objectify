@@ -14,15 +14,15 @@ import com.google.appengine.api.datastore.KeyFactory;
  */
 public class RawKeyDeserializer extends StdDeserializer<Key> {
 
-	/** */
-	public RawKeyDeserializer() {
-		super(Key.class);
-	}
+  /** */
+  public RawKeyDeserializer() {
+    super(Key.class);
+  }
 
-	/** */
-	@Override
-	public Key deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		String text = jp.getText();
-		return KeyFactory.stringToKey(text);
-	}
+  /** */
+  @Override
+  public Key deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    String text = jp.getText();
+    return KeyFactory.stringToKey(text);
+  }
 }

@@ -9,16 +9,15 @@ import com.googlecode.objectify.annotation.Id;
  */
 @Entity
 @Cache
-public class Town
-{
-	@Id
-	public Long id;
+public class Town {
+  @Id
+  public Long id;
 
-	public String name;
-	
-	@Embed
-	public Someone mayor;
+  public String name;
 
-	@Embed
-	public Someone[] folk;
+  @Embed
+  public Someone mayor;
+
+  @Embed
+  public Someone[] folk;
 }

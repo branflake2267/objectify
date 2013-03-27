@@ -9,13 +9,15 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.googlecode.objectify.Ref;
 
 /**
- * Like RefSerializer, but handles Refs when they are used as Map keys.  Always serializes to the key string representation.
+ * Like RefSerializer, but handles Refs when they are used as Map keys. Always serializes to the key string
+ * representation.
  */
 @SuppressWarnings("rawtypes")
 public class RefKeySerializer extends JsonSerializer<Ref> {
 
-	@Override
-	public void serialize(Ref value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeFieldName(value.key().getString());
-	}
+  @Override
+  public void serialize(Ref value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+      JsonProcessingException {
+    jgen.writeFieldName(value.key().getString());
+  }
 }

@@ -24,144 +24,147 @@ import com.googlecode.objectify.test.util.TestObjectify;
 
 /**
  * Tests simple use of the getRef() methods on Objectify
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class RefTests extends TestBase
-{
-	Trivial t1;
-	Trivial t2;
-	Key<Trivial> k1;
-	Key<Trivial> k2;
-	Key<Trivial> kNone;
+public class RefTests extends TestBase {
+  Trivial t1;
+  Trivial t2;
+  Key<Trivial> k1;
+  Key<Trivial> k2;
+  Key<Trivial> kNone;
 
-	/** */
-	@BeforeMethod
-	public void createTwo() {
-		fact.register(Trivial.class);
-		TestObjectify ofy = fact.begin();
+  /** */
+  @BeforeMethod
+  public void createTwo() {
+    fact.register(Trivial.class);
+    TestObjectify ofy = fact.begin();
 
-		t1 = new Trivial("foo", 11);
-		k1 = ofy.put(t1);
+    t1 = new Trivial("foo", 11);
+    k1 = ofy.put(t1);
 
-		t2 = new Trivial("bar", 22);
-		k2 = ofy.put(t2);
+    t2 = new Trivial("bar", 22);
+    k2 = ofy.put(t2);
 
-		kNone = Key.create(Trivial.class, 12345L);
-	}
+    kNone = Key.create(Trivial.class, 12345L);
+  }
 
-//	/** */
-//	@Test
-//	public void testGet() throws Exception {
-//		TestObjectify ofy = fact.begin();
-//
-//		Ref<Trivial> ref = Ref.create(k1);
-//
-//		ofy.getRef(ref);
-//		assert ref.value().getSomeString().equals(t1);
-//
-//		try {
-//			ofy.getRef(Ref.create(kNone));
-//			assert false;
-//		} catch (NotFoundException ex) {}
-//	}
+  // /** */
+  // @Test
+  // public void testGet() throws Exception {
+  // TestObjectify ofy = fact.begin();
+  //
+  // Ref<Trivial> ref = Ref.create(k1);
+  //
+  // ofy.getRef(ref);
+  // assert ref.value().getSomeString().equals(t1);
+  //
+  // try {
+  // ofy.getRef(Ref.create(kNone));
+  // assert false;
+  // } catch (NotFoundException ex) {}
+  // }
 
-	/** */
-	@Test
-	public void testFind() throws Exception {
-		TestObjectify ofy = fact.begin();
+  /** */
+  @Test
+  public void testFind() throws Exception {
+    TestObjectify ofy = fact.begin();
 
-		Ref<Trivial> ref = Ref.create(k1);
+    Ref<Trivial> ref = Ref.create(k1);
 
-		ofy.load().ref(ref);
-		assert ref.get().getSomeString().equals(t1.getSomeString());
-	}
+    ofy.load().ref(ref);
+    assert ref.get().getSomeString().equals(t1.getSomeString());
+  }
 
-	/** */
-	@Test
-	public void testGetRefsVarargs() throws Exception {
-		TestObjectify ofy = fact.begin();
+  /** */
+  @Test
+  public void testGetRefsVarargs() throws Exception {
+    TestObjectify ofy = fact.begin();
 
-		Ref<Trivial> ref1 = Ref.create(k1);
-		Ref<Trivial> ref2 = Ref.create(k2);
-		Ref<Trivial> refNone = Ref.create(kNone);
+    Ref<Trivial> ref1 = Ref.create(k1);
+    Ref<Trivial> ref2 = Ref.create(k2);
+    Ref<Trivial> refNone = Ref.create(kNone);
 
-		@SuppressWarnings({ "unused", "unchecked" })
-		Object foo = ofy.load().refs(ref1, ref2, refNone);
+    @SuppressWarnings({"unused", "unchecked"})
+    Object foo = ofy.load().refs(ref1, ref2, refNone);
 
-		assert ref1.get().getSomeString().equals(t1.getSomeString());
-		assert ref2.get().getSomeString().equals(t2.getSomeString());
-		assert refNone.get() == null;
-	}
+    assert ref1.get().getSomeString().equals(t1.getSomeString());
+    assert ref2.get().getSomeString().equals(t2.getSomeString());
+    assert refNone.get() == null;
+  }
 
-	/** */
-	@Test
-	public void testGetRefsIterable() throws Exception {
-		TestObjectify ofy = fact.begin();
+  /** */
+  @Test
+  public void testGetRefsIterable() throws Exception {
+    TestObjectify ofy = fact.begin();
 
-		Ref<Trivial> ref1 = Ref.create(k1);
-		Ref<Trivial> ref2 = Ref.create(k2);
-		Ref<Trivial> refNone = Ref.create(kNone);
+    Ref<Trivial> ref1 = Ref.create(k1);
+    Ref<Trivial> ref2 = Ref.create(k2);
+    Ref<Trivial> refNone = Ref.create(kNone);
 
-		List<Ref<Trivial>> list = new ArrayList<Ref<Trivial>>();
-		list.add(ref1);
-		list.add(ref2);
-		list.add(refNone);
+    List<Ref<Trivial>> list = new ArrayList<Ref<Trivial>>();
+    list.add(ref1);
+    list.add(ref2);
+    list.add(refNone);
 
-		ofy.load().refs(list);
+    ofy.load().refs(list);
 
-		assert ref1.get().getSomeString().equals(t1.getSomeString());
-		assert ref2.get().getSomeString().equals(t2.getSomeString());
-		assert refNone.get() == null;
-	}
+    assert ref1.get().getSomeString().equals(t1.getSomeString());
+    assert ref2.get().getSomeString().equals(t2.getSomeString());
+    assert refNone.get() == null;
+  }
 
-	/** */
-	@Entity
-	static class HasRef implements Serializable {
-		private static final long serialVersionUID = 1L;
-		public static class Foo {}
+  /** */
+  @Entity
+  static class HasRef implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-		public @Id Long id;
-		public @Load(Foo.class) Ref<Trivial> triv;
-	}
+    public static class Foo {
+    }
 
-	/** */
-	@Test
-	public void refsMustBeSerializable() throws Exception {
-		fact.register(HasRef.class);
+    public @Id
+    Long id;
+    public @Load(Foo.class)
+    Ref<Trivial> triv;
+  }
 
-		HasRef hr = new HasRef();
-		hr.triv = Ref.create(k1);
+  /** */
+  @Test
+  public void refsMustBeSerializable() throws Exception {
+    fact.register(HasRef.class);
 
-		HasRef fetched = putClearGet(hr);
+    HasRef hr = new HasRef();
+    hr.triv = Ref.create(k1);
 
-		// Now try to serialize it in memcache.
-		MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
-		ms.put("thing", fetched);
+    HasRef fetched = putClearGet(hr);
 
-		HasRef serialized = (HasRef)ms.get("thing");
-		assert serialized.id.equals(hr.id);
-	}
+    // Now try to serialize it in memcache.
+    MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
+    ms.put("thing", fetched);
 
-	/** */
-	@Test
-	public void refsLoadedMustBeSerializable() throws Exception {
-		fact.register(HasRef.class);
+    HasRef serialized = (HasRef) ms.get("thing");
+    assert serialized.id.equals(hr.id);
+  }
 
-		HasRef hr = new HasRef();
-		hr.triv = Ref.create(k1);
+  /** */
+  @Test
+  public void refsLoadedMustBeSerializable() throws Exception {
+    fact.register(HasRef.class);
 
-		TestObjectify ofy = fact.begin();
-		ofy.put(hr);
-		ofy.clear();
-		HasRef fetched = ofy.load().group(Foo.class).entity(hr).get();
+    HasRef hr = new HasRef();
+    hr.triv = Ref.create(k1);
 
-		// Now try to serialize it in memcache.
-		MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
-		ms.put("thing", fetched);
+    TestObjectify ofy = fact.begin();
+    ofy.put(hr);
+    ofy.clear();
+    HasRef fetched = ofy.load().group(Foo.class).entity(hr).get();
 
-		HasRef serialized = (HasRef)ms.get("thing");
-		assert serialized.id.equals(hr.id);
-		assert serialized.triv.get().getSomeString().equals(t1.getSomeString());
-	}
+    // Now try to serialize it in memcache.
+    MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
+    ms.put("thing", fetched);
+
+    HasRef serialized = (HasRef) ms.get("thing");
+    assert serialized.id.equals(hr.id);
+    assert serialized.triv.get().getSomeString().equals(t1.getSomeString());
+  }
 }

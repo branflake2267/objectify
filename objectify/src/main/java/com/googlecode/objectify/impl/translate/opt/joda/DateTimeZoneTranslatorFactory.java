@@ -12,31 +12,28 @@ import com.googlecode.objectify.impl.translate.SaveContext;
 import com.googlecode.objectify.impl.translate.ValueTranslator;
 import com.googlecode.objectify.impl.translate.ValueTranslatorFactory;
 
-
 /**
- * Stores a joda DateTimeZone as its String id. 
+ * Stores a joda DateTimeZone as its String id.
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class DateTimeZoneTranslatorFactory extends ValueTranslatorFactory<DateTimeZone, String>
-{
-	public DateTimeZoneTranslatorFactory() {
-		super(DateTimeZone.class);
-	}
+public class DateTimeZoneTranslatorFactory extends ValueTranslatorFactory<DateTimeZone, String> {
+  public DateTimeZoneTranslatorFactory() {
+    super(DateTimeZone.class);
+  }
 
-	@Override
-	protected ValueTranslator<DateTimeZone, String> createSafe(Path path, Property property, Type type, CreateContext ctx)
-	{
-		return new ValueTranslator<DateTimeZone, String>(path, String.class) {
-			@Override
-			protected DateTimeZone loadValue(String value, LoadContext ctx) {
-				return DateTimeZone.forID(value);
-			}
+  @Override
+  protected ValueTranslator<DateTimeZone, String> createSafe(Path path, Property property, Type type, CreateContext ctx) {
+    return new ValueTranslator<DateTimeZone, String>(path, String.class) {
+      @Override
+      protected DateTimeZone loadValue(String value, LoadContext ctx) {
+        return DateTimeZone.forID(value);
+      }
 
-			@Override
-			protected String saveValue(DateTimeZone value, SaveContext ctx) {
-				return value.getID();
-			}
-		};
-	}
+      @Override
+      protected String saveValue(DateTimeZone value, SaveContext ctx) {
+        return value.getID();
+      }
+    };
+  }
 }

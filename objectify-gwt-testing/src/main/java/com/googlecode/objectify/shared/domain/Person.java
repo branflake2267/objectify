@@ -1,12 +1,10 @@
 package com.googlecode.objectify.shared.domain;
 
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.Result;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.googlecode.objectify.impl.ref.StdRef;
-import com.googlecode.objectify.util.ResultNow;
 
 @Index
 @Entity

@@ -5,55 +5,54 @@ import java.util.concurrent.Future;
 import com.google.appengine.api.datastore.Transaction;
 
 /**
- * Simple pass-through to the base methods. 
+ * Simple pass-through to the base methods.
  */
-public class TransactionWrapper implements Transaction
-{
-	/** The real implementation */
-	Transaction raw;
-	
-	/** */
-	public TransactionWrapper(Transaction raw) {
-		this.raw = raw;
-	}
+public class TransactionWrapper implements Transaction {
+  /** The real implementation */
+  Transaction raw;
 
-	/** Just in case something needs this */
-	public Transaction getRaw() {
-		return this.raw;
-	}
-	
-	@Override
-	public void commit() {
-		this.raw.commit();
-	}
+  /** */
+  public TransactionWrapper(Transaction raw) {
+    this.raw = raw;
+  }
 
-	@Override
-	public String getId() {
-		return this.raw.getId();
-	}
+  /** Just in case something needs this */
+  public Transaction getRaw() {
+    return this.raw;
+  }
 
-	@Override
-	public boolean isActive() {
-		return this.raw.isActive();
-	}
+  @Override
+  public void commit() {
+    this.raw.commit();
+  }
 
-	@Override
-	public void rollback() {
-		this.raw.rollback();
-	}
+  @Override
+  public String getId() {
+    return this.raw.getId();
+  }
 
-	@Override
-	public String getApp() {
-		return this.raw.getApp();
-	}
+  @Override
+  public boolean isActive() {
+    return this.raw.isActive();
+  }
 
-	@Override
-	public Future<Void> commitAsync() {
-		return this.raw.commitAsync();
-	}
+  @Override
+  public void rollback() {
+    this.raw.rollback();
+  }
 
-	@Override
-	public Future<Void> rollbackAsync() {
-		return this.raw.rollbackAsync();
-	}
+  @Override
+  public String getApp() {
+    return this.raw.getApp();
+  }
+
+  @Override
+  public Future<Void> commitAsync() {
+    return this.raw.commitAsync();
+  }
+
+  @Override
+  public Future<Void> rollbackAsync() {
+    return this.raw.rollbackAsync();
+  }
 }

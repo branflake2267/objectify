@@ -21,154 +21,163 @@ import com.googlecode.objectify.test.util.TestObjectify;
 /**
  * Test persisting of Map with @Mapify annotations
  */
-public class MapifyTests extends TestBase
-{
-	@Embed
-	public static class Thing {
-		String name;
-		Long weight;
+public class MapifyTests extends TestBase {
+  @Embed
+  public static class Thing {
+    String name;
+    Long weight;
 
-		public Thing() {}
-		public Thing(String name, Long weight) {
-			this.name = name;
-			this.weight = weight;
-		}
+    public Thing() {
+    }
 
-		/** Simplistic implementation */
-		@Override
-		public boolean equals(Object other) {
-			return name.equals(((Thing)other).name) && weight.equals(((Thing)other).weight);
-		}
+    public Thing(String name, Long weight) {
+      this.name = name;
+      this.weight = weight;
+    }
 
-		@Override
-		public String toString() {
-			return "Thing(name=" + name + ", weight=" + weight + ")";
-		}
-	}
+    /** Simplistic implementation */
+    @Override
+    public boolean equals(Object other) {
+      return name.equals(((Thing) other).name) && weight.equals(((Thing) other).weight);
+    }
 
-	public static class ThingMapper implements Mapper<Long, Thing> {
-		@Override
-		public Long getKey(Thing value) {
-			return value.weight;
-		}
-	}
+    @Override
+    public String toString() {
+      return "Thing(name=" + name + ", weight=" + weight + ")";
+    }
+  }
 
-	@com.googlecode.objectify.annotation.Entity
-	public static class HasMapify {
-		@Id Long id;
+  public static class ThingMapper implements Mapper<Long, Thing> {
+    @Override
+    public Long getKey(Thing value) {
+      return value.weight;
+    }
+  }
 
-		@Mapify(ThingMapper.class)
-		Map<Long, Thing> things = new LinkedHashMap<Long, Thing>();
-	}
+  @com.googlecode.objectify.annotation.Entity
+  public static class HasMapify {
+    @Id
+    Long id;
 
+    @Mapify(ThingMapper.class)
+    Map<Long, Thing> things = new LinkedHashMap<Long, Thing>();
+  }
 
-	@Test
-	public void testMapify() throws Exception {
-		this.fact.register(HasMapify.class);
+  @Test
+  public void testMapify() throws Exception {
+    this.fact.register(HasMapify.class);
 
-		HasMapify hasMap = new HasMapify();
-		Thing thing0 = new Thing("foo", 123L);
-		hasMap.things.put(thing0.weight, thing0);
-		Thing thing1 = new Thing("bar", 456L);
-		hasMap.things.put(thing1.weight, thing1);
+    HasMapify hasMap = new HasMapify();
+    Thing thing0 = new Thing("foo", 123L);
+    hasMap.things.put(thing0.weight, thing0);
+    Thing thing1 = new Thing("bar", 456L);
+    hasMap.things.put(thing1.weight, thing1);
 
-		HasMapify fetched = this.putClearGet(hasMap);
+    HasMapify fetched = this.putClearGet(hasMap);
 
-		assert hasMap.things.equals(fetched.things);
+    assert hasMap.things.equals(fetched.things);
 
-		assert fetched.things instanceof LinkedHashMap;
-	}
+    assert fetched.things instanceof LinkedHashMap;
+  }
 
+  /** */
+  @Entity
+  public static class Top {
+    public @Id
+    long id;
 
-	/** */
-	@Entity
-	public static class Top {
-		public @Id long id;
+    @Mapify(BottomMapper.class)
+    public Map<String, Bottom> bottoms = new HashMap<String, Bottom>();
 
-		@Mapify(BottomMapper.class)
-		public Map<String, Bottom> bottoms = new HashMap<String, Bottom>();
+    public Top() {
+    }
 
-		public Top() {}
-		public Top(long id) { this.id = id; }
-	}
+    public Top(long id) {
+      this.id = id;
+    }
+  }
 
-	/** */
-	@Embed
-	public static class Bottom {
-		public @Load Ref<Top> top;
-		public String name;
-		public Bottom() {}
-	}
+  /** */
+  @Embed
+  public static class Bottom {
+    public @Load
+    Ref<Top> top;
+    public String name;
 
-	public static class BottomMapper implements Mapper<String, Bottom> {
-		@Override
-		public String getKey(Bottom value) {
-			assert value.top != null;	// this is the problem place
-			return value.name;
-		}
-	}
+    public Bottom() {
+    }
+  }
 
-	/**
-	 * This is a perverse case that gives nasty trouble.  It is known to fail.  Fortunately it's an unusual case.
-	 */
-	@Test
-	public void testBidirectionalMapify() throws Exception
-	{
-		fact.register(Top.class);
+  public static class BottomMapper implements Mapper<String, Bottom> {
+    @Override
+    public String getKey(Bottom value) {
+      assert value.top != null; // this is the problem place
+      return value.name;
+    }
+  }
 
-		TestObjectify ofy = fact.begin();
+  /**
+   * This is a perverse case that gives nasty trouble. It is known to fail. Fortunately it's an unusual case.
+   */
+  @Test
+  public void testBidirectionalMapify() throws Exception {
+    fact.register(Top.class);
 
-		Top top = new Top(123);
+    TestObjectify ofy = fact.begin();
 
-		Bottom bot = new Bottom();
-		bot.name = "foo";
-		bot.top = Ref.create(top);
+    Top top = new Top(123);
 
-		top.bottoms.put(bot.name, bot);
+    Bottom bot = new Bottom();
+    bot.name = "foo";
+    bot.top = Ref.create(top);
 
-		ofy.put(top);
-		ofy.clear();
+    top.bottoms.put(bot.name, bot);
 
-		Top topFetched = ofy.load().entity(top).get();
-		assert topFetched.bottoms.size() == 1;
+    ofy.put(top);
+    ofy.clear();
 
-		Bottom bottomFetched = topFetched.bottoms.get(bot.name);
-		assert bottomFetched.top.get().id == top.id;
-		assert bottomFetched.name.equals(bot.name);
-	}
+    Top topFetched = ofy.load().entity(top).get();
+    assert topFetched.bottoms.size() == 1;
 
-	/** */
-	public static class TrivialMapper implements Mapper<Key<Trivial>, Ref<Trivial>> {
-		@Override
-		public Key<Trivial> getKey(Ref<Trivial> value) {
-			return value.key();
-		}
-	}
+    Bottom bottomFetched = topFetched.bottoms.get(bot.name);
+    assert bottomFetched.top.get().id == top.id;
+    assert bottomFetched.name.equals(bot.name);
+  }
 
-	@com.googlecode.objectify.annotation.Entity
-	public static class HasMapifyTrivial {
-		@Id Long id;
+  /** */
+  public static class TrivialMapper implements Mapper<Key<Trivial>, Ref<Trivial>> {
+    @Override
+    public Key<Trivial> getKey(Ref<Trivial> value) {
+      return value.key();
+    }
+  }
 
-		@Mapify(TrivialMapper.class)
-		@Load
-		Map<Key<Trivial>, Ref<Trivial>> trivials = new HashMap<Key<Trivial>, Ref<Trivial>>();
-	}
+  @com.googlecode.objectify.annotation.Entity
+  public static class HasMapifyTrivial {
+    @Id
+    Long id;
 
-	/** Tests using mapify on entities */
-	@Test
-	public void testMapifyTrivials() throws Exception {
-		this.fact.register(Trivial.class);
-		this.fact.register(HasMapifyTrivial.class);
-		TestObjectify ofy = this.fact.begin();
+    @Mapify(TrivialMapper.class)
+    @Load
+    Map<Key<Trivial>, Ref<Trivial>> trivials = new HashMap<Key<Trivial>, Ref<Trivial>>();
+  }
 
-		Trivial triv = new Trivial("foo", 123L);
-		Key<Trivial> trivKey = ofy.save().entity(triv).now();
+  /** Tests using mapify on entities */
+  @Test
+  public void testMapifyTrivials() throws Exception {
+    this.fact.register(Trivial.class);
+    this.fact.register(HasMapifyTrivial.class);
+    TestObjectify ofy = this.fact.begin();
 
-		HasMapifyTrivial hasMap = new HasMapifyTrivial();
-		hasMap.trivials.put(trivKey, Ref.create(triv));
+    Trivial triv = new Trivial("foo", 123L);
+    Key<Trivial> trivKey = ofy.save().entity(triv).now();
 
-		HasMapifyTrivial fetched = this.putClearGet(hasMap);
+    HasMapifyTrivial hasMap = new HasMapifyTrivial();
+    hasMap.trivials.put(trivKey, Ref.create(triv));
 
-		assert hasMap.trivials.get(trivKey).get().getSomeString().equals(fetched.trivials.get(trivKey).get().getSomeString());
-	}
+    HasMapifyTrivial fetched = this.putClearGet(hasMap);
+
+    assert hasMap.trivials.get(trivKey).get().getSomeString().equals(
+        fetched.trivials.get(trivKey).get().getSomeString());
+  }
 }

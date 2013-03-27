@@ -18,90 +18,86 @@ import com.googlecode.objectify.test.util.TestBase;
 import com.googlecode.objectify.test.util.TestObjectify;
 
 /**
- * Tests of partial indexing.  Doesn't stress test the If mechanism; that is
- * checked in the NotSavedTests.
+ * Tests of partial indexing. Doesn't stress test the If mechanism; that is checked in the NotSavedTests.
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class IndexingPartialTests extends TestBase
-{
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(IndexingPartialTests.class.getName());
-	
-	/** */
-	public static final String TEST_VALUE = "blah";
-	
-	/** */
-	@Entity
-	@Cache
-	@Index
-	static class UnindexedWhenFalse
-	{
-		@Id Long id;
-		@Unindex(IfFalse.class) boolean foo;
-	}
-	
-	/** */
-	@Test
-	public void testUnindexedWhenFalse() throws Exception
-	{
-		this.fact.register(UnindexedWhenFalse.class);
-		TestObjectify ofy = this.fact.begin();
+public class IndexingPartialTests extends TestBase {
+  /** */
+  @SuppressWarnings("unused")
+  private static Logger log = Logger.getLogger(IndexingPartialTests.class.getName());
 
-		UnindexedWhenFalse thing = new UnindexedWhenFalse();
-		
-		// Should be able to query for it when true
-		thing.foo = true;
-		ofy.put(thing);
-		assert thing.id == ofy.load().type(UnindexedWhenFalse.class).filter("foo", true).first().get().id;
+  /** */
+  public static final String TEST_VALUE = "blah";
 
-		// Should not be able to query for it when false
-		thing.foo = false;
-		ofy.put(thing);
-		assert !ofy.load().type(UnindexedWhenFalse.class).filter("foo", true).iterator().hasNext();
-	}
+  /** */
+  @Entity
+  @Cache
+  @Index
+  static class UnindexedWhenFalse {
+    @Id
+    Long id;
+    @Unindex(IfFalse.class)
+    boolean foo;
+  }
 
-	/** */
-	static class IfComplicated extends PojoIf<IndexedOnOtherField>
-	{
-		@Override
-		public boolean matchesPojo(IndexedOnOtherField pojo)
-		{
-			return pojo.indexBar;
-		}
-	}
-	
-	/** */
-	@Entity
-	@Cache
-	@Unindex
-	static class IndexedOnOtherField
-	{
-		@Id Long id;
-		public boolean indexBar;
-		public @Index(IfComplicated.class) boolean bar;
-	}
-	
-	/** */
-	@Test
-	public void testUnindexedOnOtherField() throws Exception
-	{
-		this.fact.register(IndexedOnOtherField.class);
-		TestObjectify ofy = this.fact.begin();
+  /** */
+  @Test
+  public void testUnindexedWhenFalse() throws Exception {
+    this.fact.register(UnindexedWhenFalse.class);
+    TestObjectify ofy = this.fact.begin();
 
-		IndexedOnOtherField thing = new IndexedOnOtherField();
-		thing.bar = true;
-		
-		// Should be able to query for bar when true
-		thing.indexBar = true;
-		ofy.put(thing);
-		assert thing.id == ofy.load().type(IndexedOnOtherField.class).filter("bar", true).first().get().id;
+    UnindexedWhenFalse thing = new UnindexedWhenFalse();
 
-		// Should not be able to query for bar when false
-		thing.indexBar = false;
-		ofy.put(thing);
-		assert !ofy.load().type(IndexedOnOtherField.class).filter("bar", true).iterator().hasNext();
-	}
-	
+    // Should be able to query for it when true
+    thing.foo = true;
+    ofy.put(thing);
+    assert thing.id == ofy.load().type(UnindexedWhenFalse.class).filter("foo", true).first().get().id;
+
+    // Should not be able to query for it when false
+    thing.foo = false;
+    ofy.put(thing);
+    assert !ofy.load().type(UnindexedWhenFalse.class).filter("foo", true).iterator().hasNext();
+  }
+
+  /** */
+  static class IfComplicated extends PojoIf<IndexedOnOtherField> {
+    @Override
+    public boolean matchesPojo(IndexedOnOtherField pojo) {
+      return pojo.indexBar;
+    }
+  }
+
+  /** */
+  @Entity
+  @Cache
+  @Unindex
+  static class IndexedOnOtherField {
+    @Id
+    Long id;
+    public boolean indexBar;
+    public @Index(IfComplicated.class)
+    boolean bar;
+  }
+
+  /** */
+  @Test
+  public void testUnindexedOnOtherField() throws Exception {
+    this.fact.register(IndexedOnOtherField.class);
+    TestObjectify ofy = this.fact.begin();
+
+    IndexedOnOtherField thing = new IndexedOnOtherField();
+    thing.bar = true;
+
+    // Should be able to query for bar when true
+    thing.indexBar = true;
+    ofy.put(thing);
+    assert thing.id == ofy.load().type(IndexedOnOtherField.class).filter("bar", true).first().get().id;
+
+    // Should not be able to query for bar when false
+    thing.indexBar = false;
+    ofy.put(thing);
+    assert !ofy.load().type(IndexedOnOtherField.class).filter("bar", true).iterator().hasNext();
+  }
+
 }

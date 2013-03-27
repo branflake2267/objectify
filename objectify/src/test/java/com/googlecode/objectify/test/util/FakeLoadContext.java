@@ -12,14 +12,13 @@ import com.googlecode.objectify.impl.translate.LoadContext;
  * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
-public class FakeLoadContext extends LoadContext
-{
-	public FakeLoadContext() {
-		super(null, new LoadEngine(null) {
-			@Override
-			public boolean shouldLoad(Property prop) {
-				return false;
-			}
-		});
-	}
+public class FakeLoadContext extends LoadContext {
+  public FakeLoadContext() {
+    super(null, new LoadEngine(null) {
+      @Override
+      public boolean shouldLoad(Property prop) {
+        return false;
+      }
+    });
+  }
 }

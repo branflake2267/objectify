@@ -15,49 +15,66 @@ import com.googlecode.objectify.annotation.Unindex;
 
 /**
  * A trivial entity with some basic data.
- *
+ * 
  * @author Jeff Schnitzer <jeff@infohazard.org>
  */
 @Entity
 @Index
 @Cache
-public class Trivial implements Serializable
-{
-	private static final long serialVersionUID = 1L;
+public class Trivial implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-	@Id Long id;
-	public Long getId() { return this.id; }
-	public void setId(Long value) { this.id = value; }
+  @Id
+  Long id;
 
-	String someString;
-	public String getSomeString() { return this.someString; }
-	public void setSomeString(String value) { this.someString = value; }
+  public Long getId() {
+    return this.id;
+  }
 
-	@Unindex
-	long someNumber;
-	public long getSomeNumber() { return this.someNumber; }
-	public void setSomeNumber(long value) { this.someNumber = value; }
+  public void setId(Long value) {
+    this.id = value;
+  }
 
-	/** Default constructor must always exist */
-	public Trivial() {}
+  String someString;
 
-	/** Constructor to use when autogenerating an id */
-	public Trivial(String someString, long someNumber)
-	{
-		this(null, someString, someNumber);
-	}
+  public String getSomeString() {
+    return this.someString;
+  }
 
-	/** Constructor to use when forcing the id */
-	public Trivial(Long id, String someString, long someNumber)
-	{
-		this.id = id;
-		this.someNumber = someNumber;
-		this.someString = someString;
-	}
+  public void setSomeString(String value) {
+    this.someString = value;
+  }
 
-	@Override
-	public String toString()
-	{
-		return this.getClass().getSimpleName() + "(id=" + id + ", someString=" + someString + ", someNumber=" + someNumber + ")";
-	}
+  @Unindex
+  long someNumber;
+
+  public long getSomeNumber() {
+    return this.someNumber;
+  }
+
+  public void setSomeNumber(long value) {
+    this.someNumber = value;
+  }
+
+  /** Default constructor must always exist */
+  public Trivial() {
+  }
+
+  /** Constructor to use when autogenerating an id */
+  public Trivial(String someString, long someNumber) {
+    this(null, someString, someNumber);
+  }
+
+  /** Constructor to use when forcing the id */
+  public Trivial(Long id, String someString, long someNumber) {
+    this.id = id;
+    this.someNumber = someNumber;
+    this.someString = someString;
+  }
+
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName() + "(id=" + id + ", someString=" + someString + ", someNumber=" + someNumber
+        + ")";
+  }
 }
