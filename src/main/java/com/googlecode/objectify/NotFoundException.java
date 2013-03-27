@@ -9,7 +9,7 @@ package com.googlecode.objectify;
 public class NotFoundException extends RuntimeException
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/** */
 	private final Key<?> key;
 
@@ -18,13 +18,13 @@ public class NotFoundException extends RuntimeException
 		super("No entity was found");
 		key = null;
 	}
-	
+
 	/** Thrown when we at least know what we are looking for! */
 	public NotFoundException(Key<?> key) {
 		super("No entity was found matching the key: " + key);
 		this.key = key;
 	}
-	
+
 	/** @return the key we are looking for, if known */
 	public Key<?> getKey() {
 		return this.key;
