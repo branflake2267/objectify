@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
@@ -35,7 +35,7 @@ public class QueryCursorTests extends TestBase {
   List<Key<Trivial>> keys;
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

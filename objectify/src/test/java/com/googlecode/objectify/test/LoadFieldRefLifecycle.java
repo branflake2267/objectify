@@ -6,8 +6,8 @@ package com.googlecode.objectify.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
@@ -95,7 +95,7 @@ public class LoadFieldRefLifecycle extends TestBase {
   End end1;
 
   /** */
-  @BeforeMethod
+  @Before
   public void createTwoOthers() {
     fact.register(End.class);
     TestObjectify ofy = fact.begin();

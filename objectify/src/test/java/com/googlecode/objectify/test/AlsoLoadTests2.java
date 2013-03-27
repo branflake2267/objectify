@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
@@ -52,7 +52,7 @@ public class AlsoLoadTests2 extends TestBase {
   /**
    * Add an entry to the database that should never come back from null queries.
    */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

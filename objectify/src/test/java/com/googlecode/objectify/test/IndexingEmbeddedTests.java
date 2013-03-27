@@ -5,8 +5,8 @@ package com.googlecode.objectify.test;
 
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Embed;
 import com.googlecode.objectify.annotation.Entity;
@@ -88,7 +88,7 @@ public class IndexingEmbeddedTests extends TestBase {
   }
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

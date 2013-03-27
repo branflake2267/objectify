@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

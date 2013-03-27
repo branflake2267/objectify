@@ -6,8 +6,8 @@ package com.googlecode.objectify.test;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.test.entity.HasArrays;
@@ -25,7 +25,7 @@ public class ArrayTests extends TestBase {
   private static Logger log = Logger.getLogger(ArrayTests.class.getName());
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUpArrayTests() {
     fact.register(HasArrays.class);
   }

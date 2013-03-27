@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
@@ -35,7 +35,7 @@ public class RefTests extends TestBase {
   Key<Trivial> kNone;
 
   /** */
-  @BeforeMethod
+  @Before
   public void createTwo() {
     fact.register(Trivial.class);
     TestObjectify ofy = fact.begin();

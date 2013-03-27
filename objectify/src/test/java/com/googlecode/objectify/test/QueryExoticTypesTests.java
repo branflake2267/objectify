@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -31,7 +31,7 @@ public class QueryExoticTypesTests extends TestBase {
   private static Logger log = Logger.getLogger(QueryExoticTypesTests.class.getName());
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
   }

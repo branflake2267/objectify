@@ -3,7 +3,7 @@ package com.googlecode.objectify.test;
 import java.util.Arrays;
 import java.util.List;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;

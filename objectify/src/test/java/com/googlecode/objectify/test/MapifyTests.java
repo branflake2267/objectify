@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;

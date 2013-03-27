@@ -5,7 +5,7 @@ package com.googlecode.objectify.test;
 
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;

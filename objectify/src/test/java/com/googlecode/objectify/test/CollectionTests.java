@@ -16,7 +16,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.Entity;
 import com.googlecode.objectify.Key;

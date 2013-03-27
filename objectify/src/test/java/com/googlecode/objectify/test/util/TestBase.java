@@ -5,8 +5,8 @@ package com.googlecode.objectify.test.util;
 
 import java.util.logging.Logger;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.junit.After;
+import org.junit.Before;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -44,7 +44,7 @@ public class TestBase {
       new LocalMemcacheServiceTestConfig(), new LocalTaskQueueTestConfig());
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     this.helper.setUp();
     this.fact = new TestObjectifyFactory();
@@ -52,7 +52,7 @@ public class TestBase {
   }
 
   /** */
-  @AfterMethod
+  @After
   public void tearDown() {
     // This is normally done in ObjectifyFilter but that doesn't exist for tests
     ObjectifyFilter.complete();

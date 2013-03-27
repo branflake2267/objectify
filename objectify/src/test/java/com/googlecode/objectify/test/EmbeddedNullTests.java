@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.test.entity.Criminal;
 import com.googlecode.objectify.test.entity.Name;
@@ -21,7 +21,7 @@ public class EmbeddedNullTests extends TestBase {
   /**
    * Add an entry to the database that should never come back from null queries.
    */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

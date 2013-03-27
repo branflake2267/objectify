@@ -6,7 +6,7 @@ package com.googlecode.objectify.test;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

@@ -10,7 +10,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Id;

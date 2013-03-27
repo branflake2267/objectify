@@ -10,8 +10,8 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -47,7 +47,7 @@ public class CachingDatastoreTests extends TestBase {
 
   /**
 	 */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

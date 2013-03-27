@@ -3,7 +3,7 @@
 
 package com.googlecode.objectify.test;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;

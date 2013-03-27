@@ -8,8 +8,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceConfig;
@@ -52,7 +52,7 @@ public class QueryPerformanceTests extends TestBase {
   int getCount;
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

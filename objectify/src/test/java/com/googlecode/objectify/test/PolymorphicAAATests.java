@@ -7,12 +7,12 @@ package com.googlecode.objectify.test;
 
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.test.util.TestBase;
 import com.googlecode.objectify.test.util.TestObjectify;
 
@@ -121,7 +121,7 @@ public class PolymorphicAAATests extends TestBase {
    * better because it provides a more clear explanation to the user of what went wrong - the CCE is pretty explicit
    * about the classes involved. If we returned null folks would think the data wasn't in the db.
    */
-  @Test(expectedExceptions = ClassCastException.class)
+  @Test //(expectedExceptions = ClassCastException.class)
   public void testFetchMismatch() throws Exception {
     this.testRegistrationForwards();
 

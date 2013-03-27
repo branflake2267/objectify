@@ -3,12 +3,14 @@
 
 package com.googlecode.objectify.test;
 
+import static com.googlecode.objectify.test.util.TestObjectifyService.ofy;
+
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.VoidWork;
@@ -19,8 +21,6 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.test.entity.Trivial;
 import com.googlecode.objectify.test.util.TestBase;
 import com.googlecode.objectify.test.util.TestObjectify;
-
-import static com.googlecode.objectify.test.util.TestObjectifyService.ofy;
 
 /**
  * Tests of transactional behavior. Since many transactional characteristics are determined by race conditions and other

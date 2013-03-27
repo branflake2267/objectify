@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
@@ -47,7 +47,7 @@ public class CachingTests extends TestBase {
 
   /**
 	 */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

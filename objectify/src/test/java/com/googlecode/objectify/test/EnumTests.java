@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
@@ -48,7 +48,7 @@ public class EnumTests extends TestBase {
 
   /** */
   @Override
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
     this.fact.register(HasEnums.class);
@@ -68,7 +68,7 @@ public class EnumTests extends TestBase {
   }
 
   /** */
-  @Test(groups = {"now"})
+  @Test //(groups = {"now"})
   public void testEnumsList() throws Exception {
     TestObjectify ofy = this.fact.begin();
 

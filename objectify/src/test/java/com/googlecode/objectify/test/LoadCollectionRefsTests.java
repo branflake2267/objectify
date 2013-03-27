@@ -6,8 +6,8 @@ package com.googlecode.objectify.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -65,7 +65,7 @@ public class LoadCollectionRefsTests extends TestBase {
   }
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUpThings() {
     fact.register(Thing.class);
     fact.register(Other.class);

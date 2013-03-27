@@ -5,8 +5,8 @@ package com.googlecode.objectify.test;
 
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
@@ -44,7 +44,7 @@ public class LoadAlsoLoadTests extends TestBase {
 
   /**
 	 */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

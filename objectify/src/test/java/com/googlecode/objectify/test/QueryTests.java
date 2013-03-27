@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
@@ -41,7 +41,7 @@ public class QueryTests extends TestBase {
   List<Key<Trivial>> keys;
 
   /** */
-  @BeforeMethod
+  @Before
   public void setUp() {
     super.setUp();
 

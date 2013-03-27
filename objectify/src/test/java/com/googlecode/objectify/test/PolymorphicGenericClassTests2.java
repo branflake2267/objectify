@@ -6,14 +6,13 @@ package com.googlecode.objectify.test;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.googlecode.objectify.annotation.Entity;
-
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.EntitySubclass;
+import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.test.util.TestBase;
 
 /**

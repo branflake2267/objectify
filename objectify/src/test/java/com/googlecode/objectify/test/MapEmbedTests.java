@@ -3,7 +3,7 @@ package com.googlecode.objectify.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import com.googlecode.objectify.annotation.Embed;
 import com.googlecode.objectify.annotation.Id;
