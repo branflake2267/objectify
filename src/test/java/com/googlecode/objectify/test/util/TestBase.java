@@ -30,70 +30,70 @@ import com.googlecode.objectify.Ref;
  */
 public class TestBase
 {
-	/** */
-	@SuppressWarnings("unused")
-	private static Logger log = Logger.getLogger(TestBase.class.getName());
+    /** */
+    @SuppressWarnings("unused")
+    private static Logger log = Logger.getLogger(TestBase.class.getName());
 
-	/** */
-	protected TestObjectifyFactory fact;
+    /** */
+    protected TestObjectifyFactory fact;
 
-	/** */
-	private final LocalServiceTestHelper helper =
-			new LocalServiceTestHelper(
-					// Our tests assume strong consistency
-					new LocalDatastoreServiceTestConfig(),//.setDefaultHighRepJobPolicyUnappliedJobPercentage(100),
-					new LocalMemcacheServiceTestConfig(),
-					new LocalTaskQueueTestConfig());
-	/** */
-	@BeforeMethod
-	public void setUp()
-	{
-		this.helper.setUp();
-		this.fact = new TestObjectifyFactory();
-		ObjectifyService.setFactory(this.fact);	// just in case
-	}
+    /** */
+    private final LocalServiceTestHelper helper =
+            new LocalServiceTestHelper(
+                    // Our tests assume strong consistency
+                    new LocalDatastoreServiceTestConfig(),//.setDefaultHighRepJobPolicyUnappliedJobPercentage(100),
+                    new LocalMemcacheServiceTestConfig(),
+                    new LocalTaskQueueTestConfig());
+    /** */
+    @BeforeMethod
+    public void setUp()
+    {
+        this.helper.setUp();
+        this.fact = new TestObjectifyFactory();
+        ObjectifyService.setFactory(this.fact); // just in case
+    }
 
-	/** */
-	@AfterMethod
-	public void tearDown()
-	{
-		// This is normally done in ObjectifyFilter but that doesn't exist for tests
-		ObjectifyFilter.complete();
+    /** */
+    @AfterMethod
+    public void tearDown()
+    {
+        // This is normally done in ObjectifyFilter but that doesn't exist for tests
+        ObjectifyFilter.complete();
 
-		this.helper.tearDown();
-	}
+        this.helper.tearDown();
+    }
 
-	/** Utility methods that puts, clears the session, and immediately gets an entity */
-	protected <T> T putClearGet(T saveMe)
-	{
-		Objectify ofy = this.fact.begin();
+    /** Utility methods that puts, clears the session, and immediately gets an entity */
+    protected <T> T putClearGet(T saveMe)
+    {
+        Objectify ofy = this.fact.begin();
 
-		Key<T> key = ofy.save().entity(saveMe).now();
+        Key<T> key = ofy.save().entity(saveMe).now();
 
-		try
-		{
-			Entity ent = ds().get(null, key.getRaw());
-			System.out.println(ent);
-		}
-		catch (EntityNotFoundException e) { throw new RuntimeException(e); }
+        try
+        {
+            Entity ent = ds().get(null, key.getRaw());
+            System.out.println(ent);
+        }
+        catch (EntityNotFoundException e) { throw new RuntimeException(e); }
 
-		ofy.clear();
+        ofy.clear();
 
-		return ofy.load().key(key).get();
-	}
+        return ofy.load().key(key).get();
+    }
 
-	/** Get a DatastoreService */
-	protected DatastoreService ds()
-	{
-		return DatastoreServiceFactory.getDatastoreService();
-	}
+    /** Get a DatastoreService */
+    protected DatastoreService ds()
+    {
+        return DatastoreServiceFactory.getDatastoreService();
+    }
 
-	/** Useful utility method */
-	protected void assertRefUninitialzied(Ref<?> ref) {
-		try {
-			ref.get();
-			assert false;
-		} catch (IllegalStateException ex) {}
-	}
+    /** Useful utility method */
+    protected void assertRefUninitialzied(Ref<?> ref) {
+        try {
+            ref.get();
+            assert false;
+        } catch (IllegalStateException ex) {}
+    }
 
 }
