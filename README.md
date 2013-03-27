@@ -1,5 +1,5 @@
-#Objectify for Google App Engine
-This is the Objectify opensource project. 
+#Objectify-Fork
+This is my fork of Objectify for experimentation.
 
 * https://objectify-appengine.googlecode.com/ - The official project documentation
 and repository are here.
